@@ -46,17 +46,41 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MainForm\MainForm.cs">
+    <Compile Include="Forms\DashBoardForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm\MainForm.Designer.cs">
+    <Compile Include="Forms\DashBoardForm.Designer.cs">
+      <DependentUpon>DashBoardForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NoticeInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NoticeInfo.Designer.cs">
+      <DependentUpon>NoticeInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\UserInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\UserInfo.Designer.cs">
+      <DependentUpon>UserInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="middleView.cs">
+    <Compile Include="Forms\adminForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="middleView.Designer.cs">
-      <DependentUpon>middleView.cs</DependentUpon>
+    <Compile Include="Forms\adminForm.Designer.cs">
+      <DependentUpon>adminForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -88,5 +112,6 @@
       <Name>Commons</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

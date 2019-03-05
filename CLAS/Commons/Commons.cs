@@ -12,6 +12,33 @@ namespace Commons
 {
     public class Common
     {
+        
+            public Chart getChart(Hashtable hashtable, Control parentDomain)
+            {
+                Chart chart = new Chart();
+                ChartArea chartArea1 = new ChartArea();
+                Legend legend1 = new Legend();
+                Series series1 = new Series();
+
+                chartArea1.Name = hashtable["areaname"].ToString();
+                legend1.Name = hashtable["legname"].ToString();
+                series1.ChartArea = hashtable["areaname"].ToString();
+                series1.ChartType = SeriesChartType.Doughnut;
+                series1.Legend = hashtable["legname"].ToString();
+                series1.Name = hashtable["seriname"].ToString();
+                // 차트 기본
+                chart.Name = hashtable["chartname"].ToString();
+                chart.Dock = DockStyle.Fill;
+                chart.Text = hashtable["text"].ToString();
+                chart.ChartAreas.Add(chartArea1);
+                chart.Legends.Add(legend1);
+                chart.Series.Add(series1);
+                chart.Series[series1.Name].IsValueShownAsLabel = true;
+
+                parentDomain.Controls.Add(chart);
+                return chart;
+            }
+
         public Panel getPanel(Hashtable hashtable)
         {
             Panel panel = new Panel();
@@ -45,31 +72,31 @@ namespace Commons
             label.Text = hashtable["text"].ToString();
             return label;
         }
-        public Chart getChart(Hashtable hashtable, Control parentDomain)
-        {
-            Chart chart = new Chart();
-            ChartArea chartArea1 = new ChartArea();
-            Legend legend1 = new Legend();
-            Series series1 = new Series();
+        //public Chart getChart(Hashtable hashtable, Control parentDomain)
+        //{
+        //    Chart chart = new Chart();
+        //    ChartArea chartArea1 = new ChartArea();
+        //    Legend legend1 = new Legend();
+        //    Series series1 = new Series();
 
-            chartArea1.Name = hashtable["areaname"].ToString();
-            legend1.Name = hashtable["legname"].ToString();
-            series1.ChartArea = hashtable["areaname"].ToString();
-            series1.ChartType = SeriesChartType.Doughnut;
-            series1.Legend = hashtable["legname"].ToString();
-            series1.Name = hashtable["seriname"].ToString();
-            // 차트 기본
-            chart.Name = hashtable["chartname"].ToString();
-            chart.Dock = DockStyle.Fill;
-            chart.Text = hashtable["text"].ToString();
-            chart.ChartAreas.Add(chartArea1);
-            chart.Legends.Add(legend1);
-            chart.Series.Add(series1);
-            chart.Series[series1.Name].IsValueShownAsLabel = true;
+        //    chartArea1.Name = hashtable["areaname"].ToString();
+        //    legend1.Name = hashtable["legname"].ToString();
+        //    series1.ChartArea = hashtable["areaname"].ToString();
+        //    series1.ChartType = SeriesChartType.Doughnut;
+        //    series1.Legend = hashtable["legname"].ToString();
+        //    series1.Name = hashtable["seriname"].ToString();
+        //    // 차트 기본
+        //    chart.Name = hashtable["chartname"].ToString();
+        //    chart.Dock = DockStyle.Fill;
+        //    chart.Text = hashtable["text"].ToString();
+        //    chart.ChartAreas.Add(chartArea1);
+        //    chart.Legends.Add(legend1);
+        //    chart.Series.Add(series1);
+        //    chart.Series[series1.Name].IsValueShownAsLabel = true;
 
-            parentDomain.Controls.Add(chart);
-            return chart;
-        }
+        //    parentDomain.Controls.Add(chart);
+        //    return chart;
+        //}
         public ComboBox getComboBox(Hashtable hashtable)
         {
             ComboBox comboBox = new ComboBox();
@@ -107,5 +134,6 @@ namespace Commons
             //textBox.Enabled = (bool)hashtable["enabled"];
             return textBox;
         }
+
     }
 }
