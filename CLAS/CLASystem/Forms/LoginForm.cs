@@ -1,13 +1,7 @@
 ﻿using Commons;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CLASystem.Forms
@@ -21,6 +15,7 @@ namespace CLASystem.Forms
         private Hashtable ht;
         private Button btn_group;
 
+        private middleView mv;
         public LoginForm()
         {
             InitializeComponent();
@@ -29,6 +24,23 @@ namespace CLASystem.Forms
 
         private void LoginForm_Load(object sender, EventArgs e)
         {
+            this.Size = new Size(1200, 800);
+            //if (FormLoad.GetLoad(this, "MDI"))
+            //{
+            //    foreach (Control ctl in this.Controls)
+            //    {
+            //        if (ctl.Name == "Content")
+            //        {
+            //            if (mv != null) mv.Dispose();
+            //            mv = new middleView();
+            //            mv.MdiParent = this;
+            //            //mv.BackColor = Color.DimGray;
+            //            ctl.Controls.Add(mv);
+            //            mv.Show();
+            //            break;
+            //        }
+            //    }
+            //}
             getView();
         }
 
@@ -41,8 +53,8 @@ namespace CLASystem.Forms
                 //공통패널
                 ht = new Hashtable();
                 ht.Add("size", new Size(600, 400));
-                ht.Add("point", new Point(0, 0));
-                ht.Add("color", Color.Gray);
+                ht.Add("point", new Point(100, 100));
+                ht.Add("color", Color.WhiteSmoke);
                 ht.Add("name", "group");
                 pnl_group = comm.getPanel(ht);
                 Controls.Add(pnl_group);
@@ -69,6 +81,14 @@ namespace CLASystem.Forms
                 /*==================================================*/
 
                 //로그인 로그아웃 라벨
+                ht = new Hashtable();
+                ht.Add("point", new Point(250, 50));
+                ht.Add("color", Color.White);
+                ht.Add("name", "login_lb");
+                ht.Add("text", "관리자 로그인");
+                lb_login = comm.getLabel(ht);
+                pnl_group.Controls.Add(lb_login);
+
                 ht = new Hashtable();
                 ht.Add("point", new Point(50, 100));
                 ht.Add("color", Color.White);
@@ -104,13 +124,13 @@ namespace CLASystem.Forms
         private void btn_Click(object sender, EventArgs e)
         {
             middleView mv;
-            this.Visible = false;
+            //this.Visible = false;
             //this.FormClosed += new FormClosedEventHandler(Exit_click);
-            //this.Dispose();
             mv = new middleView();
             mv.Show();
-            this.Close();
-           
+
+
+
         }
         private void Exit_click(object sender, FormClosedEventArgs e)
         {

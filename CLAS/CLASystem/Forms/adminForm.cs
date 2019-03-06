@@ -2,13 +2,7 @@
 using Commons;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CLASystem
@@ -19,6 +13,10 @@ namespace CLASystem
         private Hashtable ht;
         private Button btn_Board;
         private Panel pnl_group, pnl_mdi;
+        private DashBoardForm board;
+        private UserInfo user;
+        private NoticeInfo notice;
+        private Label lb_login;
 
         public middleView()
         {
@@ -28,7 +26,8 @@ namespace CLASystem
 
         private void MiddleView_Load(object sender, EventArgs e)
         {
-            this.Size = new Size(1400, 800);
+            //this.IsMdiContainer = true;
+            this.Size = new Size(1200, 800);
             getView();
         }
 
@@ -38,11 +37,11 @@ namespace CLASystem
             if (FormLoad.GetLoad(this, "MDI"))
             {
                 foreach (Control ctl in this.Controls)
+            {
+                comm = new Common();
+                if (ctl.Name == "Content")
                 {
-                    comm = new Common();
-                    if (ctl.Name == "Content")
-                    {
-                        ht = new Hashtable();
+                    ht = new Hashtable();
                         ht.Add("size", new Size(200, 800));
                         ht.Add("point", new Point(0, 0));
                         ht.Add("color", Color.WhiteSmoke);
@@ -62,8 +61,8 @@ namespace CLASystem
                         ht.Add("size", new Size(180, 100));
                         ht.Add("point", new Point(10, 10));
                         ht.Add("color", Color.Gainsboro);
-                        ht.Add("name", "Logo");
-                        ht.Add("text", "DashBoard");
+                        ht.Add("name", "home");
+                        ht.Add("text", "Home");
                         ht.Add("click", (EventHandler)btn_Click);
                         btn_Board = comm.getButton(ht);
                         pnl_group.Controls.Add(btn_Board);
@@ -98,6 +97,14 @@ namespace CLASystem
                         btn_Board = comm.getButton(ht);
                         pnl_group.Controls.Add(btn_Board);
 
+
+                        ht = new Hashtable();
+                        ht.Add("point", new Point(250, 50));
+                        ht.Add("color", Color.White);
+                        ht.Add("name", "login_lb");
+                        ht.Add("text", "메인 홈");
+                        lb_login = comm.getLabel(ht);
+                        pnl_mdi.Controls.Add(lb_login);
                     }
                 }
             }
@@ -107,15 +114,18 @@ namespace CLASystem
         private void btn_Click(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
-            DashBoardForm board;
-            UserInfo user;
-            NoticeInfo notice;
+            
             switch (btn.Name)
             {
+                case "home":
+                    pnl_mdi.Controls.Clear();
+                    break;
                 case "btn_board":
                     if (FormLoad.GetLoad(board = new DashBoardForm(), "SDI"))
                     {
-                        board.TopLevel = false;
+                        board.MdiParent = this;
+                        board.WindowState = FormWindowState.Maximized;
+                        board.FormBorderStyle = FormBorderStyle.None;
                         pnl_mdi.Controls.Add(board);
                         board.Show();
                     }
@@ -124,7 +134,9 @@ namespace CLASystem
                 case "user":
                     if (FormLoad.GetLoad(user = new UserInfo(), "SDI"))
                     {
-                        user.TopLevel = false;
+                        user.MdiParent = this;
+                        user.WindowState = FormWindowState.Maximized;
+                        user.FormBorderStyle = FormBorderStyle.None;
                         pnl_mdi.Controls.Add(user);
                         user.Show();
                     }
@@ -133,7 +145,10 @@ namespace CLASystem
                 case "notice":
                     if (FormLoad.GetLoad(notice = new NoticeInfo(), "SDI"))
                     {
-                        notice.TopLevel = false;
+                        //notice.TopLevel = false;
+                        notice.MdiParent = this;
+                        notice.WindowState = FormWindowState.Maximized;
+                        notice.FormBorderStyle = FormBorderStyle.None;
                         pnl_mdi.Controls.Add(notice);
                         notice.Show();
                     }

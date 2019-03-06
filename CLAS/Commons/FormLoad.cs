@@ -15,7 +15,7 @@ namespace Commons
                     Panel Content = new Panel();
                     Content.Dock = DockStyle.Fill;
                     Content.Name = "Content";
-                    Content.BackColor = Color.Gray;
+                    Content.BackColor = Color.Yellow;
                     targetForm.Controls.Add(Content);
                     return true;
                 case "SDI":
