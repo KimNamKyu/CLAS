@@ -1,6 +1,6 @@
 ﻿namespace CLASystem.Forms
 {
-    partial class LoginForm
+    partial class ManageForm
     {
         /// <summary>
         /// Required designer variable.
@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "LoginForm";
+            this.Text = "ManageForm";
         }
 
         #endregion

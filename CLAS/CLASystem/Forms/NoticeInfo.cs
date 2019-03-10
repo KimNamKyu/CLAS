@@ -24,7 +24,8 @@ namespace CLASystem.Forms
 
         private void NoticeInfo_Load(object sender, EventArgs e)
         {
-            GetView();   
+            GetView();
+            NoticeInfo_porc();
         }
 
         private void GetView()
@@ -73,12 +74,23 @@ namespace CLASystem.Forms
 
         private void btn_Click(object sender, EventArgs e)
         {
-            
+            WebAPI api = new WebAPI();
+            ht = new Hashtable();
+            ht.Add("spName", "Board_Proc");
+            ht.Add("param", "2");
+
+            api.Select("http://localhost:5000/api/User", ht);
+           
         }
 
         private void lv_Click(object sender, MouseEventArgs e)
         {
             
+        }
+
+        private void NoticeInfo_porc()
+        {
+           
         }
     }
 }

@@ -59,6 +59,7 @@ namespace Commons
         public Label getLabel(Hashtable hashtable)
         {
             Label label = new Label();
+            
             label.Location = (Point)hashtable["point"];
             label.BackColor = (Color)hashtable["color"];
             label.Name = hashtable["name"].ToString();

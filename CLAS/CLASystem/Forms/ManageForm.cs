@@ -1,13 +1,12 @@
-﻿using CLASystem.Forms;
-using Commons;
+﻿using Commons;
 using System;
 using System.Collections;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace CLASystem
+namespace CLASystem.Forms
 {
-    public partial class middleView : Form
+    public partial class ManageForm : Form
     {
         private Common comm;
         private Hashtable ht;
@@ -18,31 +17,29 @@ namespace CLASystem
         private NoticeInfo notice;
         private Label lb_login;
 
-        public middleView()
+        public ManageForm()
         {
             InitializeComponent();
-            Load += MiddleView_Load;
+            Load += ManageForm_Load;
         }
 
-        private void MiddleView_Load(object sender, EventArgs e)
+        private void ManageForm_Load(object sender, EventArgs e)
         {
-            //this.IsMdiContainer = true;
-            this.Size = new Size(1200, 900);
+            this.Size = new Size(1200, 800);
             getView();
         }
 
-        
         private void getView()
         {
             if (FormLoad.GetLoad(this, "MDI"))
             {
                 foreach (Control ctl in this.Controls)
-            {
-                comm = new Common();
-                if (ctl.Name == "Content")
                 {
-                    ht = new Hashtable();
-                        ht.Add("size", new Size(1200, 130));
+                    comm = new Common();
+                    if (ctl.Name == "Content")
+                    {
+                        ht = new Hashtable();
+                        ht.Add("size", new Size(200, 800));
                         ht.Add("point", new Point(0, 0));
                         ht.Add("color", Color.WhiteSmoke);
                         ht.Add("name", "group");
@@ -50,26 +47,16 @@ namespace CLASystem
                         ctl.Controls.Add(pnl_group);
 
                         ht = new Hashtable();
-                        ht.Add("size", new Size(1200, 730));
-                        ht.Add("point", new Point(0, 130));
+                        ht.Add("size", new Size(1200, 800));
+                        ht.Add("point", new Point(200, 0));
                         ht.Add("color", Color.Yellow);
                         ht.Add("name", "group");
                         pnl_mdi = comm.getPanel(ht);
                         ctl.Controls.Add(pnl_mdi);
 
                         ht = new Hashtable();
-                        ht.Add("size", new Size(180, 110));
+                        ht.Add("size", new Size(180, 100));
                         ht.Add("point", new Point(10, 10));
-                        ht.Add("color", Color.Gainsboro);
-                        ht.Add("name", "home");
-                        ht.Add("text", "Logo");
-                        ht.Add("click", (EventHandler)btn_Click);
-                        btn_Board = comm.getButton(ht);
-                        pnl_group.Controls.Add(btn_Board);
-
-                        ht = new Hashtable();
-                        ht.Add("size", new Size(180, 110));
-                        ht.Add("point", new Point(200, 10));
                         ht.Add("color", Color.Gainsboro);
                         ht.Add("name", "home");
                         ht.Add("text", "Home");
@@ -78,8 +65,8 @@ namespace CLASystem
                         pnl_group.Controls.Add(btn_Board);
 
                         ht = new Hashtable();
-                        ht.Add("size", new Size(180, 110));
-                        ht.Add("point", new Point(390, 10));
+                        ht.Add("size", new Size(180, 100));
+                        ht.Add("point", new Point(10, 120));
                         ht.Add("color", Color.Gainsboro);
                         ht.Add("name", "btn_board");
                         ht.Add("text", "DashBoard");
@@ -88,8 +75,8 @@ namespace CLASystem
                         pnl_group.Controls.Add(btn_Board);
 
                         ht = new Hashtable();
-                        ht.Add("size", new Size(180, 110));
-                        ht.Add("point", new Point(580, 10));
+                        ht.Add("size", new Size(180, 100));
+                        ht.Add("point", new Point(10, 230));
                         ht.Add("color", Color.Gainsboro);
                         ht.Add("name", "user");
                         ht.Add("text", "사용자");
@@ -98,8 +85,8 @@ namespace CLASystem
                         pnl_group.Controls.Add(btn_Board);
 
                         ht = new Hashtable();
-                        ht.Add("size", new Size(180, 110));
-                        ht.Add("point", new Point(770, 10));
+                        ht.Add("size", new Size(180, 100));
+                        ht.Add("point", new Point(10, 340));
                         ht.Add("color", Color.Gainsboro);
                         ht.Add("name", "notice");
                         ht.Add("text", "게시물");
@@ -108,23 +95,22 @@ namespace CLASystem
                         pnl_group.Controls.Add(btn_Board);
 
 
-                        //ht = new Hashtable();
-                        //ht.Add("point", new Point(250, 50));
-                        //ht.Add("color", Color.White);
-                        //ht.Add("name", "login_lb");
-                        //ht.Add("text", "메인 홈");
-                        //lb_login = comm.getLabel(ht);
-                        //pnl_mdi.Controls.Add(lb_login);
+                        ht = new Hashtable();
+                        ht.Add("point", new Point(250, 50));
+                        ht.Add("color", Color.White);
+                        ht.Add("name", "login_lb");
+                        ht.Add("text", "메인 홈");
+                        lb_login = comm.getLabel(ht);
+                        pnl_mdi.Controls.Add(lb_login);
                     }
                 }
             }
-           
         }
 
         private void btn_Click(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
-            
+
             switch (btn.Name)
             {
                 case "home":

@@ -1,0 +1,55 @@
+﻿@model IEnumerable<CLAsite.Models.User>
+@{
+    ViewData["Title"] = "About";
+}
+
+<h2>About</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserPassword)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.regDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.delYn)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model){ 
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserPassword)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.regDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.delYn)
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+

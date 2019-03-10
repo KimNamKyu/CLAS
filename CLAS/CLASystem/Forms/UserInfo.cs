@@ -70,5 +70,10 @@ namespace CLASystem.Forms
         {
             
         }
+
+        private void UserInfo_list()
+        {
+
+        }
     }
 }
