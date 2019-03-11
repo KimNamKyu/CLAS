@@ -14,7 +14,7 @@ namespace CLASystem
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new middleView());
+            Application.Run(new MainForm());
         }
     }
 }

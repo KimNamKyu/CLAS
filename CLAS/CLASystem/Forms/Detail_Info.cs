@@ -15,6 +15,7 @@ namespace CLASystem.Forms
     public partial class Detail_Info : Form
     {
         private Common comm;
+        private WebAPI api;
         private Hashtable ht;
         private Panel pnl_group;
         private Panel pnl_item;
@@ -27,7 +28,7 @@ namespace CLASystem.Forms
         private TextBox txt_Title;
         private Button btn_Board;
 
-        public Detail_Info(string nTitle, string Subject, string Content, string UserNo)
+        public Detail_Info(string nTitle, string Subject, string Content)
         {
             status = 1;
             InitializeComponent();
@@ -35,17 +36,17 @@ namespace CLASystem.Forms
             this.nTitle = nTitle;
             this.Subject = Subject;
             this.Content = Content;
-            this.UserNo = UserNo;
         }
 
-        public Detail_Info(string nTitle, string cNo)
+        public Detail_Info(string cNo, string UserNo)
         {
             status = 2;
             InitializeComponent();
             Load += Detail_Info_Load;
-            this.nTitle = nTitle;
             this.cNo = cNo;
-            MessageBox.Show(cNo);
+            this.UserNo = UserNo;
+            //MessageBox.Show(UserNo);
+            //MessageBox.Show(cNo);
         }
         private void Detail_Info_Load(object sender, EventArgs e)
         {
@@ -108,9 +109,24 @@ namespace CLASystem.Forms
                 ht.Add("text", "제목 받아와서 넣기");
                 lb_title = comm.getLabel(ht);
                 lb_title.Font = new Font("Microsoft Sans Serif", 25);
-                lb_title.Size = new Size(700, 50);
+                lb_title.Size = new Size(700, 60);
                 lb_title.Text = Subject;
                 pnl_item_title.Controls.Add(lb_title);
+
+                ht = new Hashtable();
+                ht.Add("width", 700);
+                ht.Add("font", new Font("Microsoft Sans Serif", 20));
+                ht.Add("point", new Point(28, 80));
+                ht.Add("name", "내용");
+                txt_content = comm.getTextBox(ht);
+                txt_content.Multiline = true;
+                txt_content.Height = 400;
+                txt_content.Enabled = false;
+                txt_content.Enter += Txt_Enter;
+                txt_content.Leave += Txt_Leave;
+                txt_content.BorderStyle = BorderStyle.FixedSingle;
+                txt_content.Text = Content;
+                pnl_item_title.Controls.Add(txt_content);
             }
 
             if(status == 2)
@@ -144,28 +160,29 @@ namespace CLASystem.Forms
                 txt_Title.Multiline = true;
                 txt_Title.Height = 50;
                 txt_Title.BorderStyle = BorderStyle.FixedSingle;
-                txt_Title.Text = "제목을 입력하세요";
                 txt_Title.ForeColor = Color.Silver;
                 txt_Title.Enter += Txt_Title_Enter;
                 txt_Title.Leave += Txt_Title_Leave;
+               
                 pnl_item_title.Controls.Add(txt_Title);
+
+                    ht = new Hashtable();
+                    ht.Add("width", 700);
+                    ht.Add("font", new Font("Microsoft Sans Serif", 20));
+                    ht.Add("point", new Point(28, 80));
+                    ht.Add("name", "내용");
+                    txt_content = comm.getTextBox(ht);
+                    txt_content.Multiline = true;
+                    txt_content.Height = 400;
+                
+                txt_content.Enabled = true;
+                txt_content.Enter += Txt_Enter;
+                txt_content.Leave += Txt_Leave;
+                txt_content.BorderStyle = BorderStyle.FixedSingle;
+                Content = txt_content.Text;
+                pnl_item_title.Controls.Add(txt_content);
             }
 
-            ht = new Hashtable();
-            ht.Add("width", 700);
-            ht.Add("font", new Font("Microsoft Sans Serif", 20));
-            ht.Add("point", new Point(28, 80));
-            ht.Add("name", "내용");
-            txt_content = comm.getTextBox(ht);
-            txt_content.Multiline = true;
-            txt_content.Height = 400;
-            txt_content.Text = Content;
-            if(status == 1) txt_content.Enabled = false;
-            else txt_content.Enabled = true;
-            txt_content.Enter += Txt_Enter;
-            txt_content.Leave += Txt_Leave;
-            txt_content.BorderStyle = BorderStyle.FixedSingle;
-            pnl_item_title.Controls.Add(txt_content);
         }
 
         private void btn_Click(object sender, EventArgs e)
@@ -174,8 +191,22 @@ namespace CLASystem.Forms
             switch (btn.Name)
             {
                 case "저장":
+                    api = new WebAPI();
+                    ht = new Hashtable();
+                    ht.Add("spName", "Board_Insert_proc");
+                    ht.Add("cNo",cNo);
+                    ht.Add("bTitle", txt_Title.Text);
+                    ht.Add("bContents", txt_content.Text);
+                    ht.Add("MemberNo", UserNo);
+                    if (!api.Post("http://localhost:5000/insert/Note", ht))
+                    {
+                        MessageBox.Show("추가실패");
+                    }
+                    MessageBox.Show("공지사항 추가되었습니다.");
+                    this.Dispose();
                     break;
                 case "취소":
+                    this.Dispose();
                     break;
                 default:
                     break;

@@ -22,6 +22,7 @@ namespace CLASystem.Forms
         public string Subject;
         public string Content;
         private Detail_Info detail_Info;
+        private string bNo;
         public string UserNo;
 
         public NoticeInfo()
@@ -53,6 +54,7 @@ namespace CLASystem.Forms
             ht.Add("click", (MouseEventHandler)lv_Click);
             Dash_lv = comm.GetListView(ht);
 
+            Dash_lv.Columns.Add("bNo", 0);
             Dash_lv.Columns.Add("No", 100, HorizontalAlignment.Center);
             Dash_lv.Columns.Add("제목", 150, HorizontalAlignment.Center);
             Dash_lv.Columns.Add("내용", 300, HorizontalAlignment.Center);
@@ -140,11 +142,23 @@ namespace CLASystem.Forms
             switch (btn.Name)
             {
                 case "delete":
-                    MessageBox.Show("삭제");
+                    api = new WebAPI();
+                    ht = new Hashtable();
+                    ht.Add("spName", "Board_delete_proc");
+                    ht.Add("bNo", bNo);
+                    if (!api.Post("http://localhost:5000/delete/Note", ht))
+                    {
+                        MessageBox.Show("삭제 실패");
+                        break;
+                    }
+                    MessageBox.Show("삭제되었습니다.");
+                    NoticeInfo_porc(cNo[0]);
                     break;
                 case "write":
-                    detail_Info = new Detail_Info(nTitle, cNo[0]);
+                    detail_Info = new Detail_Info(cNo[0],UserNo);
                     detail_Info.ShowDialog();
+                    NoticeInfo_porc(cNo[0]);
+                    //MessageBox.Show(UserNo);
                     break;
                 default:
                     break;
@@ -160,11 +174,12 @@ namespace CLASystem.Forms
             for (int i = 0; i < itemGroup.Count; i++)
             {
                 ListViewItem item = itemGroup[i];
-                Subject = item.SubItems[1].Text;
-                Content = item.SubItems[2].Text;
-                UserNo = item.SubItems[5].Text;
-                //MessageBox.Show(UserNo);
-                detail_Info = new Detail_Info(nTitle, Subject, Content,UserNo);
+                Subject = item.SubItems[2].Text;
+                Content = item.SubItems[3].Text;
+                
+                //MessageBox.Show(bNo);
+
+                detail_Info = new Detail_Info(nTitle, Subject, Content);
                 detail_Info.ShowDialog();
             }
         }
@@ -190,8 +205,10 @@ namespace CLASystem.Forms
                 for (int j = 0; j < ja.Count; j++)
                 {
                     arr[j] = ja[j].ToString();
-                   
+                    UserNo = ja[6].ToString();
+                    bNo = ja[0].ToString();
                 }
+                //MessageBox.Show(bNo);
                 Dash_lv.Items.Add(new ListViewItem(arr));
             }
         }

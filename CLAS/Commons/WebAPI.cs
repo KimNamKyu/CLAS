@@ -86,5 +86,41 @@ namespace Commons
                 return null;
             }
         }
+
+
+        public bool Post(string url, Hashtable ht)
+        {
+            MessageBox.Show(url);
+            try
+            {
+                WebClient wc = new WebClient();
+                NameValueCollection param = new NameValueCollection();  // Key : Value 형식
+
+                foreach (DictionaryEntry data in ht)
+                {
+                    MessageBox.Show(string.Format("{0},{1}", data.Key.ToString(), data.Value.ToString()));
+                    param.Add(data.Key.ToString(), data.Value.ToString());
+                }
+
+                byte[] result = wc.UploadValues(url, "POST", param);
+                string resultStr = Encoding.UTF8.GetString(result);
+
+                if ("1" == resultStr)
+                {
+                    //MessageBox.Show("결제가 완료 되었습니다.!");
+                }
+                else
+                {
+                    //MessageBox.Show("결제 실패!!");
+                }
+
+                return true;
+            }
+            catch
+            {
+                MessageBox.Show("실패");
+                return false;
+            }
+        }
     }
 }
