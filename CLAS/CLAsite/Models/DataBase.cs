@@ -2,7 +2,7 @@
 using System.Data;
 using System.Data.SqlClient;
 
-namespace Server.Moules
+namespace CLAsite.Moules
 {
     public class DataBase
     {
@@ -53,7 +53,6 @@ namespace Server.Moules
                         System.Console.WriteLine(data.Key.ToString(), data.Value);
                         comm.Parameters.AddWithValue(data.Key.ToString(), data.Value);
                     }
-
                     return comm.ExecuteReader();
                 }
                 catch

@@ -4,6 +4,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -41,7 +43,7 @@ namespace Commons
             }
         }
 
-        public ArrayList ListView(ListView listView, ArrayList list)
+        public ArrayList ListView(string url, ListView listView, ArrayList list)
         {
             ArrayList arrayList = new ArrayList();
             try
@@ -62,6 +64,25 @@ namespace Commons
             catch
             {
                 //MessageBox.Show("실패");
+                return null;
+            }
+        }
+
+
+
+        public ArrayList SelectCategory(string url)
+        {
+            try
+            {
+                WebClient wc = new WebClient();
+                Stream stream = wc.OpenRead(url);
+                StreamReader sr = new StreamReader(stream);
+                string result = sr.ReadToEnd();
+                ArrayList list = JsonConvert.DeserializeObject<ArrayList>(result);
+                return list;
+            }
+            catch
+            {
                 return null;
             }
         }

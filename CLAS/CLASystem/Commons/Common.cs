@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
-namespace Commons
+namespace CLASystem.Commons
 {
     public class Common
     {
@@ -59,15 +63,12 @@ namespace Commons
         public Label getLabel(Hashtable hashtable)
         {
             Label label = new Label();
-            
             label.Location = (Point)hashtable["point"];
             label.BackColor = (Color)hashtable["color"];
             label.Name = hashtable["name"].ToString();
             label.Text = hashtable["text"].ToString();
             return label;
         }
-
-
         public Chart GetChart(Hashtable hashtable)
         {
             ChartArea chartArea = new ChartArea();
@@ -98,7 +99,6 @@ namespace Commons
         public ComboBox getComboBox(Hashtable hashtable)
         {
             ComboBox comboBox = new ComboBox();
-            comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox.Width = Convert.ToInt32(hashtable["width"].ToString());
             comboBox.DropDownWidth = Convert.ToInt32(hashtable["width"].ToString());
             comboBox.Location = (Point)hashtable["point"];
@@ -120,7 +120,7 @@ namespace Commons
             //listView.Size = (Size)hashtable["size"];
             listView.BackColor = (Color)hashtable["color"];
             listView.Name = hashtable["name"].ToString();
-            listView.MouseDoubleClick += (MouseEventHandler)hashtable["click"];
+            listView.MouseClick += (MouseEventHandler)hashtable["click"];
             listView.Font = new Font("맑은 고딕", 14, FontStyle.Bold);
             return listView;
         }

@@ -124,13 +124,13 @@ namespace CLASystem
         private void btn_Click(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
-            
             switch (btn.Name)
             {
                 case "home":
                     pnl_mdi.Controls.Clear();
                     break;
                 case "btn_board":
+                    
                     if (FormLoad.GetLoad(board = new DashBoardForm(), "SDI"))
                     {
                         board.MdiParent = this;
@@ -142,6 +142,7 @@ namespace CLASystem
                     break;
 
                 case "user":
+           
                     if (FormLoad.GetLoad(user = new UserInfo(), "SDI"))
                     {
                         user.MdiParent = this;
@@ -153,9 +154,9 @@ namespace CLASystem
                     break;
 
                 case "notice":
+           
                     if (FormLoad.GetLoad(notice = new NoticeInfo(), "SDI"))
                     {
-                        //notice.TopLevel = false;
                         notice.MdiParent = this;
                         notice.WindowState = FormWindowState.Maximized;
                         notice.FormBorderStyle = FormBorderStyle.None;
