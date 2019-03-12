@@ -119,6 +119,8 @@ namespace CLASystem.Forms
                 case "btn_board":
                     if (FormLoad.GetLoad(board = new DashBoardForm(), "SDI"))
                     {
+                        //board.ForeColor = Color.YellowGreen;
+                        board.BackColor = Color.YellowGreen; 
                         board.MdiParent = this;
                         board.WindowState = FormWindowState.Maximized;
                         board.FormBorderStyle = FormBorderStyle.None;
@@ -130,6 +132,8 @@ namespace CLASystem.Forms
                 case "user":
                     if (FormLoad.GetLoad(user = new UserInfo(), "SDI"))
                     {
+                        //board.BackColor = Color.Gainsboro;
+                        user.BackColor = Color.Blue;
                         user.MdiParent = this;
                         user.WindowState = FormWindowState.Maximized;
                         user.FormBorderStyle = FormBorderStyle.None;

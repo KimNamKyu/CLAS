@@ -17,6 +17,9 @@ namespace CLASystem
         private UserInfo user;
         private NoticeInfo notice;
         private Label lb_login;
+        private Button btn_home;
+        private Button btn_Dash;
+        private Button btn_user;
 
         public middleView()
         {
@@ -44,7 +47,7 @@ namespace CLASystem
                     ht = new Hashtable();
                         ht.Add("size", new Size(1200, 130));
                         ht.Add("point", new Point(0, 0));
-                        ht.Add("color", Color.WhiteSmoke);
+                        ht.Add("color", Color.DimGray);
                         ht.Add("name", "group");
                         pnl_group = comm.getPanel(ht);
                         ctl.Controls.Add(pnl_group);
@@ -74,8 +77,8 @@ namespace CLASystem
                         ht.Add("name", "home");
                         ht.Add("text", "Home");
                         ht.Add("click", (EventHandler)btn_Click);
-                        btn_Board = comm.getButton(ht);
-                        pnl_group.Controls.Add(btn_Board);
+                        btn_home = comm.getButton(ht);
+                        pnl_group.Controls.Add(btn_home);
 
                         ht = new Hashtable();
                         ht.Add("size", new Size(180, 110));
@@ -84,8 +87,8 @@ namespace CLASystem
                         ht.Add("name", "btn_board");
                         ht.Add("text", "DashBoard");
                         ht.Add("click", (EventHandler)btn_Click);
-                        btn_Board = comm.getButton(ht);
-                        pnl_group.Controls.Add(btn_Board);
+                        btn_Dash = comm.getButton(ht);
+                        pnl_group.Controls.Add(btn_Dash);
 
                         ht = new Hashtable();
                         ht.Add("size", new Size(180, 110));
@@ -94,8 +97,8 @@ namespace CLASystem
                         ht.Add("name", "user");
                         ht.Add("text", "사용자");
                         ht.Add("click", (EventHandler)btn_Click);
-                        btn_Board = comm.getButton(ht);
-                        pnl_group.Controls.Add(btn_Board);
+                        btn_user = comm.getButton(ht);
+                        pnl_group.Controls.Add(btn_user);
 
                         ht = new Hashtable();
                         ht.Add("size", new Size(180, 110));
@@ -106,15 +109,6 @@ namespace CLASystem
                         ht.Add("click", (EventHandler)btn_Click);
                         btn_Board = comm.getButton(ht);
                         pnl_group.Controls.Add(btn_Board);
-
-
-                        //ht = new Hashtable();
-                        //ht.Add("point", new Point(250, 50));
-                        //ht.Add("color", Color.White);
-                        //ht.Add("name", "login_lb");
-                        //ht.Add("text", "메인 홈");
-                        //lb_login = comm.getLabel(ht);
-                        //pnl_mdi.Controls.Add(lb_login);
                     }
                 }
             }
@@ -128,11 +122,19 @@ namespace CLASystem
             {
                 case "home":
                     pnl_mdi.Controls.Clear();
+                    btn_home.BackColor = Color.RoyalBlue;
+                    btn_Dash.BackColor = Color.Gainsboro;
+                    btn_user.BackColor = Color.Gainsboro;
+                    btn_Board.BackColor = Color.Gainsboro;
                     break;
                 case "btn_board":
                     
                     if (FormLoad.GetLoad(board = new DashBoardForm(), "SDI"))
                     {
+                        btn_home.BackColor = Color.Gainsboro;
+                        btn_Dash.BackColor = Color.RoyalBlue;
+                        btn_user.BackColor = Color.Gainsboro;
+                        btn_Board.BackColor = Color.Gainsboro;
                         board.MdiParent = this;
                         board.WindowState = FormWindowState.Maximized;
                         board.FormBorderStyle = FormBorderStyle.None;
@@ -145,6 +147,10 @@ namespace CLASystem
            
                     if (FormLoad.GetLoad(user = new UserInfo(), "SDI"))
                     {
+                        btn_home.BackColor = Color.Gainsboro;
+                        btn_Dash.BackColor = Color.Gainsboro;
+                        btn_user.BackColor = Color.RoyalBlue;
+                        btn_Board.BackColor = Color.Gainsboro;
                         user.MdiParent = this;
                         user.WindowState = FormWindowState.Maximized;
                         user.FormBorderStyle = FormBorderStyle.None;
@@ -157,6 +163,10 @@ namespace CLASystem
            
                     if (FormLoad.GetLoad(notice = new NoticeInfo(), "SDI"))
                     {
+                        btn_home.BackColor = Color.Gainsboro;
+                        btn_Dash.BackColor = Color.Gainsboro;
+                        btn_user.BackColor = Color.Gainsboro;
+                        btn_Board.BackColor = Color.RoyalBlue;
                         notice.MdiParent = this;
                         notice.WindowState = FormWindowState.Maximized;
                         notice.FormBorderStyle = FormBorderStyle.None;

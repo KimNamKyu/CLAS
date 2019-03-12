@@ -1,51 +1,45 @@
-﻿using Commons;
+﻿using CLAprogram.Models;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace CLASystem.Forms
+namespace CLAprogram.Views
 {
-    public partial class UserInfo : Form
+    class UserView
     {
         private Hashtable ht;
-        private Common comm;
+        private Form parentForm;
+        private Commons comm;
         private Control pnl_group;
         private Button btn_Board;
         private string _mNo;
-
         public ListView Dash_lv;
 
-        public UserInfo()
+        public UserView(Form parentForm)
         {
-            InitializeComponent();
-            Load += UserInfo_Load;
-        }
-
-        private void UserInfo_Load(object sender, EventArgs e)
-        {
+            this.parentForm = parentForm;
+            comm = new Commons();
             GetView();
             UserInfo_list();
         }
 
         private void GetView()
         {
-            comm = new Common();
             ht = new Hashtable();
             ht.Add("size", new Size(900, 500));
             ht.Add("point", new Point(40, 100));
             ht.Add("color", Color.Blue);
             ht.Add("name", "group");
-            pnl_group = comm.getPanel(ht);
-            Controls.Add(pnl_group);
+            pnl_group = comm.getPanel(ht,parentForm);
 
             ht = new Hashtable();
             //ht.Add("size", new Size(500, 300));
             ht.Add("color", Color.Gainsboro);
             ht.Add("name", "Dash_lv");
             ht.Add("click", (MouseEventHandler)lv_Click);
-            Dash_lv = comm.GetListView(ht);
+            Dash_lv = comm.GetListView(ht,parentForm);
 
             Dash_lv.Columns.Add("No", 100, HorizontalAlignment.Center);
             Dash_lv.Columns.Add("아이디", 150, HorizontalAlignment.Center);
@@ -62,8 +56,7 @@ namespace CLASystem.Forms
             ht.Add("name", "user");
             ht.Add("text", "사용자");
             ht.Add("click", (EventHandler)btn_Click);
-            btn_Board = comm.getButton(ht);
-            Controls.Add(btn_Board);
+            btn_Board = comm.getButton(ht,parentForm);
         }
 
         private void lv_Click(object sender, MouseEventArgs e)
@@ -82,7 +75,7 @@ namespace CLASystem.Forms
 
         private void btn_Click(object sender, EventArgs e)
         {
-           
+
         }
 
         private void UserInfo_list()
