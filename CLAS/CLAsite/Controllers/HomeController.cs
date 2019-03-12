@@ -18,64 +18,16 @@ namespace CLAsite.Controllers
     public class HomeController : Controller
     {
       
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            ArrayList list = new ArrayList();
-            HttpClient client = new HttpClient();
-            var res = await client.GetAsync("http://localhost/api/Data");
-            if (res.IsSuccessStatusCode)
-            {
-                var result = res.Content.ReadAsStringAsync().Result;
-                list = JsonConvert.DeserializeObject<ArrayList>(result);
-                Console.WriteLine(list);
-            }
-            return View(list);
+            
+            return View();
         }
 
-        private static async void Indexs()
+        public IActionResult About()
         {
-            using (var client = new HttpClient())
-            {
-                var result = await client.GetAsync("http://localhost/api/Data");
-                Console.WriteLine(result);
-            }
-        }
-
-        public async Task<IActionResult> About()
-        {
-            ViewData["Message"] = "Your application description page.";
-            //List<User> users = new List<User>();
-            //HttpClient client = new HttpClient();
-            //var res = await client.GetAsync("http://localhost/api/Data");
-
-            //if (res.IsSuccessStatusCode)
-            //{
-            //    var result = res.Content.ReadAsStringAsync().Result;
-            //    users = JsonConvert.DeserializeObject<List<User>>(result);
-
-            //    Console.WriteLine(users);
-            //}
-            //Console.WriteLine("failes!!!=====");
-
-            //WebClient client = new WebClient();
-            //string Url = "http://localhost:5000/api/Data";
-            //Stream result = client.OpenRead(Url);
-            //StreamReader sr = new StreamReader(result);
-            //string str = sr.ReadToEnd();
-            //List<User> users = new List<User>();
-            //users = JsonConvert.DeserializeObject<List<User>>(str);
-            List<User> users = new List<User>();
-
-            using (WebClient client = new WebClient())
-            {
-                string Url = "http://localhost:5000/api/Data";
-                using (StreamReader sr = new StreamReader(client.OpenRead(Url)))
-                {
-                    users = JsonConvert.DeserializeObject<List<User>>(sr.ReadToEnd());
-                }
-            }
-
-            return View(users);
+            
+            return View();
         }
 
         public IActionResult Contact()

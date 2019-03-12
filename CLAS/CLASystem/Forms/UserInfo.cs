@@ -26,6 +26,7 @@ namespace CLASystem.Forms
         private void UserInfo_Load(object sender, EventArgs e)
         {
             GetView();
+            UserInfo_list();
         }
 
         private void GetView()
@@ -47,9 +48,11 @@ namespace CLASystem.Forms
             Dash_lv = comm.GetListView(ht);
 
             Dash_lv.Columns.Add("No", 100, HorizontalAlignment.Center);
-            Dash_lv.Columns.Add("Url Path", 300, HorizontalAlignment.Center);
-            Dash_lv.Columns.Add("Url Name", 200, HorizontalAlignment.Center);
-            Dash_lv.Columns.Add("Count", 100, HorizontalAlignment.Center);
+            Dash_lv.Columns.Add("아이디", 150, HorizontalAlignment.Center);
+            Dash_lv.Columns.Add("패스워드", 150, HorizontalAlignment.Center);
+            Dash_lv.Columns.Add("이름", 150, HorizontalAlignment.Center);
+            Dash_lv.Columns.Add("멤버유형", 100, HorizontalAlignment.Center);
+            Dash_lv.Columns.Add("생성날짜", 240, HorizontalAlignment.Center);
             pnl_group.Controls.Add(Dash_lv);
 
             ht = new Hashtable();
@@ -79,31 +82,28 @@ namespace CLASystem.Forms
 
         private void btn_Click(object sender, EventArgs e)
         {
+           
+        }
+
+        private void UserInfo_list()
+        {
             WebAPI api = new WebAPI();
             ht = new Hashtable();
-            ht.Add("spName", "Board_Proc");
-            ht.Add("param", "@cNo: 1");
+            ht.Add("spName", "Member_Info");
+            ht.Add("param", "");
 
             ArrayList list = api.Select("http://localhost:5000/select", ht);
 
             for (int i = 0; i < list.Count; i++)
             {
-                //string[] row = (string[])list[i];
-                //Dash_lv.Items.Add(new ListViewItem(row));
                 JArray ja = (JArray)list[i];
                 string[] arr = new string[ja.Count];
-                //MessageBox.Show(ja.Count.ToString());
                 for (int j = 0; j < ja.Count; j++)
                 {
                     arr[j] = ja[j].ToString();
                 }
                 Dash_lv.Items.Add(new ListViewItem(arr));
             }
-        }
-
-        private void UserInfo_list()
-        {
-
         }
     }
 }

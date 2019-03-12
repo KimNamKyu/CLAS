@@ -44,7 +44,7 @@ namespace CLAsite.Controllers
 
         [Route("select/Login")]
         [HttpPost]
-        public ActionResult<bool> select([FromForm] string spName, [FromForm]string id, [FromForm]string pwd)
+        public ActionResult<ArrayList> select([FromForm] string spName, [FromForm]string id, [FromForm]string pwd)
         {
             Console.WriteLine("spName : {0}, id : {1}, pwd : {2}", spName, id, pwd);
             Hashtable ht = new Hashtable();

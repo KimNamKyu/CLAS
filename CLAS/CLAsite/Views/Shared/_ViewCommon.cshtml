@@ -1,0 +1,58 @@
+﻿@{
+    //Layout = "_Layout";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/style.css">
+    <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+    <script>
+        jQuery(function($) {
+            $(".menu_toggle_btn").click(function() {
+                $(".info_list").stop().slideToggle('fast');
+            });
+        });
+
+    </script>
+    <title>@ViewData["start"] - CALS </title>
+</head>
+
+<body>
+
+    <div class="wrap">
+        <header>
+            <div class="head_group">
+                <div id="logbox">
+                    <img src="~/images/CLA.jpg">
+                </div>
+            </div>
+        </header>
+
+
+        <nav>
+            <div class="nav_area">
+                <span class="menu_toggle_btn"></span>
+                <ul class="info_list">
+                    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-controller="Home" asp-action="Privacy">공지사항</a></li>
+                    <li><a href="#">커뮤니티</a></li>
+                    <li><a href="#">QnA</a></li>
+                </ul>
+            </div>
+        </nav>
+
+
+
+        <div id="contentswrap">
+           @RenderBody()
+        </div>
+        <div class="footer">
+            <p> 관리자 문의 </p>
+        </div>
+    </div>
+
+</body>
+
+</html>

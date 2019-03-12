@@ -119,10 +119,10 @@ namespace CLASystem
             api = new WebAPI();
             ht = new Hashtable();
             ht.Add("spName", "AdminLogin");
-            ht.Add("id", txt_box1.Text);
-            ht.Add("pwd", txt_box2.Text);
-            ArrayList list = api.Select("http://localhost:5000/select/Login", ht);
-
+            ht.Add("param", "");
+            //ht.Add("id", txt_box1.Text);
+            //ht.Add("pwd", txt_box2.Text);
+            ArrayList list = api.Select("http://localhost:5000/select", ht);
 
             for (int i = 0; i < list.Count; i++)
             {
@@ -134,12 +134,19 @@ namespace CLASystem
                     arr[0] = ja[0].ToString();
                     arr[1] = ja[1].ToString();
                 }
-                MessageBox.Show(arr[1]);
-                
-            }
-            //ManageForm mf = new ManageForm();
-            //mf.Show();
+                //MessageBox.Show(arr[0]);
+                //MessageBox.Show(arr[1]);
 
+                if(arr[0] == txt_box1.Text && arr[1] == txt_box2.Text)
+                {
+                    ManageForm mf = new ManageForm();
+                    mf.Show();
+                }
+                else
+                {
+                    MessageBox.Show("아이디와 비밀번호를 확인해주세요 ");
+                }
+            }
         }
     }
 }
