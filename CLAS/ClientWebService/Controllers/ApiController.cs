@@ -17,6 +17,7 @@ namespace ClientWebService.Controllers
         [HttpPost]
         public ActionResult<ArrayList> select([FromForm] string spName, [FromForm]string param)
         {
+            
             Console.WriteLine("spName : {0}, param : {1}", spName, param);
             Hashtable ht = new Hashtable();
             if (!String.IsNullOrEmpty(param))
@@ -25,6 +26,7 @@ namespace ClientWebService.Controllers
                 ht.Add(str[0], str[1]);
                 Console.WriteLine(str[0] + str[1]);
             }
+
 
             DataBase db = new DataBase();
             SqlDataReader sdr = db.Reader(spName, ht);
@@ -42,6 +44,7 @@ namespace ClientWebService.Controllers
             db.ReaderClose(sdr);
             db.Close();
             Console.WriteLine("asd : {0}", list.Count.ToString());
+            
             return list;
         }
 

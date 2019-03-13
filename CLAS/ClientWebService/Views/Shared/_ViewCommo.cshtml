@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="~/css/style.css">
     <link rel="stylesheet" href="~/css/modal.css">
+    <script src="~/lib//jquery//dist//jquery.min.js"></script>
     <script type="text/javascript" src="~/js/event.js"></script>
+    <script type="text/javascript" src="~/js/login.js"></script>
     <title>@ViewData["Title"] - CLAS </title>
+
 </head>
 
 <body>
@@ -44,17 +47,12 @@
                 <div id="login_contents">
                     <div id="login_title">아이디 로그인</div>
                     <div id="login_user_info">
-                        <input type="text" id="login_user_id" maxlength="12" placeholder="아이디" />
-                        <br>
-                        <input type="password" id="login_user_pwd" maxlength="16" placeholder="비밀번호" />
-                    </div>
-                    <div id="login_input_border">
-                        <div id="login_btn_border">
-                            <div class="btn_com" id="btn_login" onclick="login_btn()">로그인</div>
-                        </div>
-                        <div id="login_cancel_btn_border">
-                            <div class="btn_com" id="login_btn_cancel" onclick="login_modalClose()">취소</div>
-                        </div>
+                        <form>
+                            <input type="text" id="login_user_id" maxlength="12" placeholder="아이디" />
+                            <br>
+                            <input type="password" id="login_user_pwd" maxlength="16" placeholder="비밀번호" />
+                            <input type="submit" value="로그인" id="button" />
+                        </form>
                     </div>
                 </div>
             </div>

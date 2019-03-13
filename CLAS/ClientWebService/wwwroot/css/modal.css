@@ -60,41 +60,16 @@
   margin-top: 10px;
   color: dimgray;
 }
-
-#login_btn_border{
-  float: left;
-  width: 50%;
-  height: 100%;
-}
-
-#login_cancel_btn_border{
-  float: left;
-  width: 50%;
-  height: 100%;
-}
-
-.btn_com{
-  float: left;
-  width: 70%;;
-  height: 60%;
-  margin-top: 15px;
-  border-radius: 7px 7px;
-  color : white;
-  font-weight: bold;
-  text-align: center;
-  line-height: 70px;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-#btn_login{
-  background-color: #2e6da4;
-  margin-left: 65px;
-}
-
-#login_btn_cancel{
-  background-color: #df4a32;
-  margin-left: 13px;
+#button {
+    background-color: #0059ab;
+    color: white;
+    cursor: pointer;
+    padding: 0 20px;
+    margin-left: 65px;
+    margin-top: 10px;
+    width: 74%;
+    font-size: 30px;
+    border: none;
 }
 
 /* 아래 부터는 회원가입 모달 */
