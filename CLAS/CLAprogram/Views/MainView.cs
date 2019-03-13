@@ -27,6 +27,7 @@ namespace CLAprogram.Views
         private TextBox txt_pwd;
         private Button btn_login;
         private ManageForm tagetForm;
+        private Label lb_logo;
 
         public MainView(Form parentForm)
         {
@@ -40,19 +41,28 @@ namespace CLAprogram.Views
             ht = new Hashtable();
             ht.Add("size", new Size(400, 600));
             ht.Add("point", new Point(0, 0));
-            ht.Add("color", Color.Aqua);
+            ht.Add("color", Color.FromArgb(0, 89, 171));
             ht.Add("name", "left");
             pn_left = comm.getPanel(ht, parentForm);
 
+            //Log analysis system
             //====================================================
 
             ht = new Hashtable();
-            ht.Add("image", (Bitmap)Properties.Resources.ResourceManager.GetObject("CLALogo.png"));
+            ht.Add("image", (Bitmap)Properties.Resources.ResourceManager.GetObject("CLALogo"));
             ht.Add("point", new Point(50,70));
             ht.Add("size", new Size(300,300));
             img = comm.getPictureBox(ht,pn_left);
-            img.BorderStyle = BorderStyle.FixedSingle;
+            //img.BorderStyle = BorderStyle.FixedSingle;
             img.BackgroundImageLayout = ImageLayout.Stretch;
+
+            ht = new Hashtable();
+            ht.Add("point", new Point(25, 220));
+            ht.Add("name", "login_lb");
+            ht.Add("text", "Log Analysis System");
+            lb_logo = comm.getLabel(ht, img);
+            lb_logo.Font = new Font("Microsoft Sans Serif", 20);
+            lb_logo.ForeColor = Color.White;
 
             //====================================================
             ht = new Hashtable();

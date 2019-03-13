@@ -69,6 +69,7 @@ namespace CLAprogram.Models
             parentForm.Size = new Size(810, 830);
             parentForm.BackColor = Color.Gainsboro;
             parentForm.FormBorderStyle = FormBorderStyle.FixedSingle;
+            parentForm.StartPosition = FormStartPosition.CenterParent;
             parentForm.MaximizeBox = false;
             parentForm.MinimizeBox = false;
             parentForm.Text = "글쓰기 화면";
@@ -80,6 +81,7 @@ namespace CLAprogram.Models
             parentForm.Size = new Size(810, 830);
             parentForm.BackColor = Color.Gainsboro;
             parentForm.FormBorderStyle = FormBorderStyle.FixedSingle;
+            parentForm.StartPosition = FormStartPosition.CenterScreen;
             parentForm.MaximizeBox = false;
             parentForm.MinimizeBox = false;
             parentForm.Text = "게시물 상세 화면";
@@ -124,6 +126,7 @@ namespace CLAprogram.Models
             parentForm.Text = "관리화면";
             form = new FormLoad();
             form.GetLoad(parentForm, "MDI");
+            parentForm.StartPosition = FormStartPosition.CenterScreen;
             new ManageView(parentForm);
         }
 

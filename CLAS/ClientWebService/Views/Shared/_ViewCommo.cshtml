@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/modal.css">
+    <script type="text/javascript" src="~/js/event.js"></script>
+    <title>@ViewData["Title"] - CLAS </title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="main">
+            <div class="sidebar">
+                <div id="nav-head">
+                    <a asp-controller="Home" asp-action="Index"><div class="logo"></div></a>
+                </div>
+
+                <div class="nav-main">
+                    <ul>
+                        <li><a class="link" onclick="home_login_btn()">로그인</a></li>
+                        <li><a class="link" onclick="home_register_btn()">회원가입</a></li>
+                    </ul>
+                </div>
+
+                <ul class="nav-main item">
+                    <li><a asp-controller="Home" asp-action="Notice" class="link">공지사항</a></li>
+                    <li><a asp-controller="Home" asp-action="Board" class="link">커뮤니티</a></li>
+                    <li><a asp-controller="Home" asp-action="QnA" class="link">QnA</a></li>
+                </ul>
+            </div>
+
+            <div class="content">
+                @RenderBody()
+            </div>
+
+            <div id="footer">
+            </div>
+
+            <!--로그인 모달------------------------------------------------------>
+            <div id="login_modal">
+                <div id="modal_back" onclick="login_modalClose()"></div>
+                <div id="login_contents">
+                    <div id="login_title">아이디 로그인</div>
+                    <div id="login_user_info">
+                        <input type="text" id="login_user_id" maxlength="12" placeholder="아이디" />
+                        <br>
+                        <input type="password" id="login_user_pwd" maxlength="16" placeholder="비밀번호" />
+                    </div>
+                    <div id="login_input_border">
+                        <div id="login_btn_border">
+                            <div class="btn_com" id="btn_login" onclick="login_btn()">로그인</div>
+                        </div>
+                        <div id="login_cancel_btn_border">
+                            <div class="btn_com" id="login_btn_cancel" onclick="login_modalClose()">취소</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!------------------------------------------------------------------>
+
+            <!--회원가입 모달------------------------------------------------------>
+            <div id="register_modal">
+                <div id="modal_back" onclick="register_modalClose()"></div>
+                <div id="register_contents">
+                    <div id="register_title">회원가입</div>
+                    <div id="register_user_info">
+                        <input type="text" id="register_user_id" maxlength="12" placeholder="아이디" />
+                        <br>
+                        <input type="password" id="register_user_pwd" maxlength="16" placeholder="비밀번호" />
+                        <br>
+                        <input type="text" id="register_user_name" maxlength="10" placeholder="이름" />
+                        <br>
+                        <input type="text" id="register_user_nickname" maxlength="8" placeholder="닉네임" />
+                    </div>
+                    <div id="register_input_border">
+                        <div id="register_btn_border">
+                            <div id="login_btn_border">
+                                <div class="btn_com" id="btn_register" onclick="login_btn()">가입하기</div>
+                            </div>
+                        </div>
+                        <div id="register_cancel_btn_border">
+                            <div id="login_cancel_btn_border">
+                                <div class="btn_com" id="register_btn_cancel" onclick="register_modalClose()">취소</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

@@ -41,7 +41,7 @@ namespace CLAprogram.Views
             ht = new Hashtable();
             ht.Add("size", new Size(900, 500));
             ht.Add("point", new Point(40, 100));
-            ht.Add("color", Color.Green);
+            ht.Add("color", Color.Gainsboro);
             ht.Add("name", "group");
             pnl_group = comm.getPanel(ht,parentForm);
 

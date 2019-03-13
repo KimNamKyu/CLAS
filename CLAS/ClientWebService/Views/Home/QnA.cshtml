@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "QnA";
+    Layout = "_ViewCommo";
+}
+
+<section class="dan">
+    <div id="lvContent" class="BoardList0">
+        <span class="BoardList1"><h2>QnA</h2></span>
+    </div>
+</section>
+<section class="dan">
+    <div class="group_member">
+        <div class="create_notice">
+            <a href="#" class="btn-wide">새 글 쓰기</a>
+        </div>
+        <div class="form_data">
+            <form id="form" onsubmin="return false;">
+                <input id="text" type="text" name="name" placeholder="검색할 제목 입력하세요.">
+                <input id="submit" type="submit" value="검색">
+            </form>
+        </div>
+    </div>
+    <div class="BoardList2">
+        <table>
+            <thead>
+                <tr>
+                    <th class="BoardList3">번호</th>
+                    <th class="BoardList4">제목</th>
+                    <th class="BoardList5">작성자</th>
+                    <th class="BoardList6">작성일</th>
+                    <th class="BoardList6">조회수</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</section>
