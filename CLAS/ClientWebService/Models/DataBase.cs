@@ -39,36 +39,7 @@ namespace ClientWebService.Models
         }
 
 
-
-        public SqlDataReader Reader(string sql, Hashtable ht)
-        {
-            if (status)  //연결된 상태일 때만
-            {
-                System.Console.WriteLine("상태 DB On");
-                try
-                {
-                    SqlCommand comm = new SqlCommand();
-                    comm.CommandText = sql;
-                    comm.Connection = conn;
-                    comm.CommandType = CommandType.StoredProcedure;
-
-                    foreach (DictionaryEntry data in ht)
-                    {
-                        System.Console.WriteLine(data.Key.ToString(), data.Value);
-                        comm.Parameters.AddWithValue(data.Key.ToString(), data.Value);
-                    }
-                    return comm.ExecuteReader();
-                }
-                catch
-                {
-                    return null;
-                }
-            }
-            else
-            {
-                return null;
-            }
-        }
+      
 
         public bool ReaderClose(SqlDataReader sdr)
         {
@@ -137,5 +108,43 @@ namespace ClientWebService.Models
                 return null;
             }
         }
+
+        public ArrayList GetList(string sql, Hashtable ht)
+        {
+            if (status)
+            {
+                ArrayList result = new ArrayList();
+                try
+                {
+                    SqlCommand comm = new SqlCommand();
+                    comm.Connection = conn;
+                    comm.CommandText = sql;
+                    comm.CommandType = CommandType.StoredProcedure;
+                    foreach (DictionaryEntry data in ht)
+                    {
+                        comm.Parameters.AddWithValue(data.Key.ToString(), data.Value);
+                    }
+                    SqlDataReader reader = comm.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Hashtable col = new Hashtable();
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            col.Add(reader.GetName(i), reader.GetValue(i));
+                        }
+                        result.Add(col);
+                    }
+                    reader.Close();
+                    return result;
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+            return null;
+        }
+
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using CLAprogram.Models;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
@@ -87,15 +88,19 @@ namespace CLAprogram.Views
 
             ArrayList list = api.Select("http://localhost:5000/select", ht);
 
-            for (int i = 0; i < list.Count; i++)
+            ArrayList result = new ArrayList();
+            foreach (JObject row in list)
             {
-                JArray ja = (JArray)list[i];
-                string[] arr = new string[ja.Count];
-                for (int j = 0; j < ja.Count; j++)
+                Hashtable ht = new Hashtable();
+                foreach (JProperty col in row.Properties())
                 {
-                    arr[j] = ja[j].ToString();
+                    ht.Add(col.Name, col.Value);
                 }
-                Dash_lv.Items.Add(new ListViewItem(arr));
+                result.Add(ht);
+            }
+            foreach (Hashtable ht in result)
+            {
+                Dash_lv.Items.Add(new ListViewItem(new string[] { ht["MemberNo"].ToString(), ht["MemberId"].ToString(), ht["MemberPassword"].ToString(), ht["MemberName"].ToString(), ht["MemberState"].ToString(), ht["regDate"].ToString() }));
             }
         }
     }

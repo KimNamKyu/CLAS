@@ -1,20 +1,40 @@
 ﻿$(document).ready(function () {
+
+    var logininfo = sessionStorage.getItem("user");
+
+    if (logininfo != null) {
+
+    }
+
+
     $("form").submit(function (e) {
         e.preventDefault();
+        var inputid = $("#login_user_id").val();
+        var inputpwd = $("#login_user_pwd").val();
+
+        if (inputid == "" && inputpwd == "") {
+            alert("아이디와 비밀번호를 확인하세요!");
+            return false;
+        }
+        
         var loginData = {
+            spName: "UserLogon",
             id: $("#login_user_id").val(),
-            password: $("#login_user_pwd").val()
+            pwd: $("#login_user_pwd").val()
         };
 
-        $.post("User/Login", loginData).done(function (d) {
-            if (d.state == 1) {
-                location.href = "/Home/Index";
-            }
-            else if(d.state != 1) {
-                $("#login_user_id").val("");
-                $("#login_user_pwd").val("");
-                alert("사용자가 없습니다.");
-            }
-        });
-    });
+        $.post("/select/Login", loginData).done(
+            function (data) {
+                var id = data[0].MemberId;
+                var pwd = data[0].MemberPassword;
+
+                if (inputid == id && inputpwd == pwd) {
+                    alert("아이디" + data[0].MemberId + "비번" + data[0].MemberPassword + "네임" +  data[0].MemberName);
+                }
+                else {
+                    alert("아이디와 비밀번호를 확인하세요!");
+                }
+        })
+    })
 });
+

@@ -121,5 +121,29 @@ namespace CLAprogram.Models
                 return false;
             }
         }
+
+
+
+        public string Posts(string url, Hashtable ht)
+        {
+            try
+            {
+                WebClient wc = new WebClient();
+                NameValueCollection nameValue = new NameValueCollection();
+
+                foreach (DictionaryEntry data in ht)
+                {
+                    nameValue.Add(data.Key.ToString(), data.Value.ToString());
+                }
+
+                byte[] result = wc.UploadValues(url, "POST", nameValue);
+                string resultStr = Encoding.UTF8.GetString(result);
+                return resultStr;
+            }
+            catch
+            {
+                return "";
+            }
+        }
     }
 }

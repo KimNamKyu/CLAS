@@ -17,6 +17,7 @@ namespace CLAprogram.Views
         private Chart chart;
         private ListView Dash_lv;
         private Panel pnl_group;
+        private string count;
 
         public DashBoardView(Form parentForm)
         {
@@ -79,19 +80,36 @@ namespace CLAprogram.Views
             Dash_lv.Items.Clear();
             ArrayList list = api.Select("http://localhost:5000/select", ht);
 
-            for (int i = 0; i < list.Count; i++)
+            //for (int i = 0; i < list.Count; i++)
+            //{
+            //    JArray ja = (JArray)list[i];
+            //    string[] arr = new string[ja.Count];
+            //    for (int j = 0; j < ja.Count; j++)
+            //    {
+            //        arr[j] = ja[j].ToString();
+            //        arr[4] = ja[4].ToString();
+
+            //    }
+            //    //MessageBox.Show(arr[4]);
+            //    chart.Series[0].Points.Add(Convert.ToInt32(arr[4]));
+            //    Dash_lv.Items.Add(new ListViewItem(arr));
+            //}
+
+            ArrayList result = new ArrayList();
+            foreach (JObject row in list)
             {
-                JArray ja = (JArray)list[i];
-                string[] arr = new string[ja.Count];
-                for (int j = 0; j < ja.Count; j++)
+                Hashtable ht = new Hashtable();
+                foreach (JProperty col in row.Properties())
                 {
-                    arr[j] = ja[j].ToString();
-                    arr[4] = ja[4].ToString();
-                    
+                   
+                    ht.Add(col.Name, col.Value);
                 }
-                //MessageBox.Show(arr[4]);
-                chart.Series[0].Points.Add(Convert.ToInt32(arr[4]));
-                Dash_lv.Items.Add(new ListViewItem(arr));
+                result.Add(ht);
+            }
+            foreach (Hashtable ht in result)
+            {
+                chart.Series[0].Points.Add(Convert.ToInt32(ht["uView"].ToString()));
+                Dash_lv.Items.Add(new ListViewItem(new string[] { ht["UrlNo"].ToString(), ht["UrlName"].ToString(), ht["UrlPath"].ToString(), ht["regDate"].ToString(), ht["uView"].ToString() }));
             }
         }
     }

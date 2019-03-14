@@ -52,7 +52,6 @@ namespace CLAprogram.Views
             ht.Add("click", (MouseEventHandler)lv_Click);
             Dash_lv = comm.GetListView(ht,parentForm);
 
-            Dash_lv.Columns.Add("bNo", 0);
             Dash_lv.Columns.Add("No", 100, HorizontalAlignment.Center);
             Dash_lv.Columns.Add("제목", 150, HorizontalAlignment.Center);
             Dash_lv.Columns.Add("내용", 300, HorizontalAlignment.Center);
@@ -193,19 +192,24 @@ namespace CLAprogram.Views
             Dash_lv.Items.Clear();
             ArrayList list = api.Select("http://localhost:5000/select", ht);
 
-            for (int i = 0; i < list.Count; i++)
+            
+            ArrayList result = new ArrayList();
+            foreach (JObject row in list)
             {
-                JArray ja = (JArray)list[i];
-                string[] arr = new string[ja.Count];
-                for (int j = 0; j < ja.Count; j++)
+                UserNo = row["MemberNo"].ToString();
+                bNo = row["bNo"].ToString();
+                Hashtable ht = new Hashtable();
+                foreach (JProperty col in row.Properties())
                 {
-                    arr[j] = ja[j].ToString();
-                    UserNo = ja[6].ToString();
-                    bNo = ja[0].ToString();
+                    ht.Add(col.Name, col.Value);
                 }
-                //MessageBox.Show(bNo);
-                Dash_lv.Items.Add(new ListViewItem(arr));
+                result.Add(ht);
             }
+            foreach (Hashtable ht in result)
+            {
+                Dash_lv.Items.Add(new ListViewItem(new string[] { ht["sort"].ToString(), ht["bTitle"].ToString(), ht["bContents"].ToString(), ht["MemberName"].ToString(), ht["regDate"].ToString() }));
+            }
+           
         }
     }
 }

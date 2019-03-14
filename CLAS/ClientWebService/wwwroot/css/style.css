@@ -1,16 +1,17 @@
-* {
+﻿* {
     margin: 0;
     padding: 0
 }
 
 body {
     width: 100%;
-    background: #f8f8f8;
+    background: #fff;
 }
 
 .container {
+    display: block;
     position: absolute;
-    max-width: 1080px;
+    width: 1200px;
     background: #f8f8f8;
 }
 
@@ -23,12 +24,11 @@ body {
     }
 
 .sidebar {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
-    z-index: 1;
-    display: block;
+    display: inline-block;
     padding: 0 20px;
     overflow: hidden;
     background-color: #0059ab;
@@ -101,11 +101,14 @@ body {
             cursor: pointer;
         }
 
+
 .content {
     position: relative;
     display: block;
     width: 900px;
-    min-height: 800px;
+    height: auto;
+    min-height:800px;
+    padding: 20px 50px;
 }
 
 section {
@@ -230,8 +233,14 @@ a {
         box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
     }
 
+#center {
+    margin-left: 250px;
+}
 
-
+.tr:hover {
+    background-color: yellow;
+    cursor: pointer;
+}
 
 
 
@@ -244,7 +253,7 @@ a {
 #footer {
     position: relative;
     border-top: 1px solid #ddd;
-    width: 805px;
+    width: 900px;
     color: #999;
     font-size: 12px;
     margin-top: 50px;
@@ -255,7 +264,7 @@ a {
 
 
 
-/* =====================�Խù�==================*/
+/* =====================°Ô½Ã¹°==================*/
 .BoardList1 {
     color: #666666;
     font-weight: bold;

@@ -29,23 +29,9 @@ namespace ClientWebService.Controllers
 
 
             DataBase db = new DataBase();
-            SqlDataReader sdr = db.Reader(spName, ht);
-            ArrayList list = new ArrayList();
-            while (sdr.Read())
-            {
-                string[] arr = new string[sdr.FieldCount];
-                for (int i = 0; i < sdr.FieldCount; i++)
-                {
-                    Console.WriteLine(sdr.GetValue(i).ToString());
-                    arr[i] = sdr.GetValue(i).ToString();
-                }
-                list.Add(arr);
-            }
-            db.ReaderClose(sdr);
-            db.Close();
-            Console.WriteLine("asd : {0}", list.Count.ToString());
+            ArrayList result = db.GetList(spName, ht);
             
-            return list;
+            return result;
         }
 
         [Route("select/Login")]
@@ -55,25 +41,11 @@ namespace ClientWebService.Controllers
             Console.WriteLine("spName : {0}, id : {1}, pwd : {2}", spName, id, pwd);
             Hashtable ht = new Hashtable();
 
-            ht.Add("@id", id);
-            ht.Add("@pwd", pwd);
+            ht.Add("@UserId", id);
+            ht.Add("@UserPwd", pwd);
             DataBase db = new DataBase();
-            SqlDataReader sdr = db.Reader(spName, ht);
-            ArrayList list = new ArrayList();
-            while (sdr.Read())
-            {
-                string[] arr = new string[sdr.FieldCount];
-                for (int i = 0; i < sdr.FieldCount; i++)
-                {
-                    Console.WriteLine(sdr.GetValue(i).ToString());
-                    arr[i] = sdr.GetValue(i).ToString();
-                }
-                list.Add(arr);
-            }
-            db.ReaderClose(sdr);
-            db.Close();
-            Console.WriteLine("asd : {0}", list.Count.ToString());
-            return list;
+            ArrayList result = db.GetList(spName, ht);
+            return result;
         }
 
         [Route("select/Category")]

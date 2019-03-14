@@ -146,34 +146,28 @@ namespace CLAprogram.Views
             //ht.Add("pwd", txt_box2.Text);
             ArrayList list = api.Select("http://localhost:5000/select", ht);
 
-            for (int i = 0; i < list.Count; i++)
+            ArrayList result = new ArrayList();
+            JObject jo = (JObject)list[0];
+
+            string id = jo["MemberId"].ToString();
+            string pwd = jo["MemberPassword"].ToString();
+            MessageBox.Show(id +" : "+ pwd);
+
+            if (id == txt_login.Text && pwd == txt_pwd.Text)
             {
-                JArray ja = (JArray)list[i];
-                string[] arr = new string[ja.Count];
-                for (int j = 0; j < ja.Count; j++)
+                tagetForm = new ManageForm
                 {
-                    arr[j] = ja[j].ToString();
-                    arr[0] = ja[0].ToString();
-                    arr[1] = ja[1].ToString();
-                }
-
-                if (arr[0] == txt_login.Text && arr[1] == txt_pwd.Text)
-                {
-                    tagetForm = new ManageForm
-                    {
-                        StartPosition = FormStartPosition.CenterScreen
-                    };
-                    tagetForm.FormClosed += new FormClosedEventHandler(Exit_click);
-                    tagetForm.Show();
-
-                }
-                else
-                {
-                    MessageBox.Show("아이디와 비밀번호를 확인해주세요 ");
-                }
+                    StartPosition = FormStartPosition.CenterScreen
+                };
+                tagetForm.FormClosed += new FormClosedEventHandler(Exit_click);
+                tagetForm.Show();
             }
-        }
+            else
+            {
+                MessageBox.Show("아이디와 비밀번호를 확인해주세요 ");
+            }
 
+        }
         private void Exit_click(object sender, FormClosedEventArgs e)
         {
             this.parentForm.Close();
