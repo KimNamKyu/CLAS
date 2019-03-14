@@ -7,7 +7,7 @@
     }
 
 
-    $("form").submit(function (e) {
+    $("#login").submit(function (e) {
         e.preventDefault();
         var inputid = $("#login_user_id").val();
         var inputpwd = $("#login_user_pwd").val();
@@ -36,5 +36,23 @@
                 }
         })
     })
+
+
+    $("#Res").submit(function (e) {
+        e.preventDefault();
+        var registerData = {
+            spName: "Sing_up",
+            id: $("#register_user_id").val(),
+            pwd: $("#register_user_pwd").val(),
+            name: $("#register_user_name").val()
+        }
+
+        $.post("/api/Register", registerData).done(
+            function () {
+                alter("success");
+                location.href = "/Home/Index";
+            })
+    });
+
 });
 

@@ -55,7 +55,7 @@
             <div id="login_contents">
                 <div id="login_title">아이디 로그인</div>
                 <div id="login_user_info">
-                    <form method="post" onsubmin="return false">
+                    <form id="login" method="post" onsubmin="return false">
                         <input type="text" id="login_user_id" maxlength="12" placeholder="아이디" />
                         <br>
                         <input type="password" id="login_user_pwd" maxlength="16" placeholder="비밀번호" />
@@ -71,26 +71,17 @@
             <div id="register_contents">
                 <div id="register_title">회원가입</div>
                 <div id="register_user_info">
-                    <input type="text" id="register_user_id" maxlength="12" placeholder="아이디" />
-                    <br>
-                    <input type="password" id="register_user_pwd" maxlength="16" placeholder="비밀번호" />
-                    <br>
-                    <input type="text" id="register_user_name" maxlength="10" placeholder="이름" />
-                    <br>
-                    <input type="text" id="register_user_nickname" maxlength="8" placeholder="닉네임" />
+                    <form id="Res" method="post" onsubmin="return false">
+                        <input type="text" id="register_user_id" maxlength="12" placeholder="아이디" />
+                        <br>
+                        <input type="password" id="register_user_pwd" maxlength="16" placeholder="비밀번호" />
+                        <br>
+                        <input type="text" id="register_user_name" maxlength="10" placeholder="이름" />
+                        <br>
+                        <input type="submit" value="회원가입" id="button" />
+                    </form>
                 </div>
-                <div id="register_input_border">
-                    <div id="register_btn_border">
-                        <div id="login_btn_border">
-                            <div class="btn_com" id="btn_register" onclick="login_btn()">가입하기</div>
-                        </div>
-                    </div>
-                    <div id="register_cancel_btn_border">
-                        <div id="login_cancel_btn_border">
-                            <div class="btn_com" id="register_btn_cancel" onclick="register_modalClose()">취소</div>
-                        </div>
-                    </div>
-                </div>
+               
             </div>
         </div>
 

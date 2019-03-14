@@ -78,6 +78,7 @@ body {
                 padding: 10px 20px;
                 text-decoration: none;
                 color: white;
+                cursor: pointer;
             }
 
 .item {
@@ -107,7 +108,7 @@ body {
     display: block;
     width: 900px;
     height: auto;
-    min-height:800px;
+    min-height: 800px;
     padding: 20px 50px;
 }
 
@@ -146,7 +147,7 @@ section {
     box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
 }
 
-.list-group {
+.list-group-Board .list-group-QnA .list-group-Notice {
     list-style-type: disc;
     margin-bottom: 0;
     padding-left: 0;
@@ -194,8 +195,7 @@ a {
 }
 
     .avatar .info {
-        display: inline-block;
-        vertical-align: middle;
+        display: block;
         float: right;
         font-size: 12px;
         line-height: 5px;
@@ -240,15 +240,72 @@ a {
 .tr:hover {
     background-color: yellow;
     cursor: pointer;
-}
+}
+
+/*================상세페이지====================*/
+
+.detail {
+    position: relative;
+    width: 90%;
+    margin-bottom: 40px;
+    background-color: #fff;
+    border: 1px solid silver;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
+}
+
+    .detail .detail-head {
+        padding: 15px 20px;
+        border: 1px solid silver;
+        font-size: 20px;
+    }
+
+.suject {
+    display: block;
+    font-size: 13px;
+    line-height: 5px;
+    padding: 10px 0 10px 0;
+}
+
+.detail .detail-content {
+    padding: 15px 20px;
+    border: 1px solid silver;
+}
+
+.content_body {
+    height: auto;
+}
+
+h2 {
+    font-size: 22px;
+    margin-top: 0;
+    word-break: break-all;
+}
+
+hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #eee;
+}
+
+.content-text {
+    overflow-x: auto;
+    min-height: 300px;
+    margin: 30px 0;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+#note-title {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 16px;
+    padding: 10px 20px
+}
 
 
 
-
-
-
-
-
+/*==============바닥글=========================*/
 
 #footer {
     position: relative;

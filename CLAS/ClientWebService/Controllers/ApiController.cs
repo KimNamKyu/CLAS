@@ -34,19 +34,7 @@ namespace ClientWebService.Controllers
             return result;
         }
 
-        [Route("select/Login")]
-        [HttpPost]
-        public ActionResult<ArrayList> select([FromForm] string spName, [FromForm]string id, [FromForm]string pwd)
-        {
-            Console.WriteLine("spName : {0}, id : {1}, pwd : {2}", spName, id, pwd);
-            Hashtable ht = new Hashtable();
-
-            ht.Add("@UserId", id);
-            ht.Add("@UserPwd", pwd);
-            DataBase db = new DataBase();
-            ArrayList result = db.GetList(spName, ht);
-            return result;
-        }
+        
 
         [Route("select/Category")]
         [HttpGet]
