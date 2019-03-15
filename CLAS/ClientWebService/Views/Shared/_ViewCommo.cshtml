@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="~/css/style.css">
     <link rel="stylesheet" href="~/css/modal.css">
     <script src="~/lib//jquery//dist//jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="~/js/event.js"></script>
     <script type="text/javascript" src="~/js/login.js"></script>
     <title>@ViewData["Title"] - CLAS </title>
@@ -29,9 +30,9 @@
             </div>
 
             <ul class="nav-main item">
-                <li><a asp-controller="Home" asp-action="Notice" class="link">공지사항</a></li>
-                <li><a asp-controller="Home" asp-action="Board" class="link">커뮤니티</a></li>
-                <li><a asp-controller="Home" asp-action="QnA" class="link">QnA</a></li>
+                <li><a asp-controller="Note" asp-action="Notice" class="link">공지사항</a></li>
+                <li><a asp-controller="Note" asp-action="Board" class="link">커뮤니티</a></li>
+                <li><a asp-controller="Note" asp-action="QnA" class="link">QnA</a></li>
             </ul>
         </div>
 
@@ -81,7 +82,7 @@
                         <input type="submit" value="회원가입" id="button" />
                     </form>
                 </div>
-               
+
             </div>
         </div>
 

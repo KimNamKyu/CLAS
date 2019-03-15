@@ -12,39 +12,32 @@ namespace ClientWebService.Controllers
     [ApiController]
     public class MemberController : ControllerBase
     {
-        [Route("select/Login")]
+        [Route("api/Login")]
         [HttpPost]
-        public ActionResult<ArrayList> select([FromForm] string spName, [FromForm]string id, [FromForm]string pwd)
+        public int select([FromForm]string id, [FromForm]string pwd)
         {
-            Console.WriteLine("spName : {0}, id : {1}, pwd : {2}", spName, id, pwd);
             Hashtable ht = new Hashtable();
-
             ht.Add("@UserId", id);
             ht.Add("@UserPwd", pwd);
             DataBase db = new DataBase();
-            ArrayList result = db.GetList(spName, ht);
+            int result = db.NonQuerys("UserLogon", ht);
+            HttpContext.Session.SetInt32("USER_LOGIN_KEY", result);
+            db.Close();
             return result;
         }
 
         [Route("api/Register")]
         [HttpPost]
-        public string Register([FromForm] string spName, [FromForm]string id, [FromForm]string pwd, [FromForm]string name)
+        public int Register([FromForm]string id, [FromForm]string pwd, [FromForm]string name)
         { 
             Hashtable ht = new Hashtable();
             ht.Add("@UserId", id);
             ht.Add("@UserPwd", pwd);
             ht.Add("@UserName", name);
             DataBase db = new DataBase();
-            if (db.NonQuery(spName, ht))
-            {
-                db.Close();
-                return "1";
-            }
-            else
-            {
-                db.Close();
-                return "0";
-            }
+            int result = db.NonQuerys("Sign_up", ht);
+            db.Close();
+            return result;
         }
     }
 }

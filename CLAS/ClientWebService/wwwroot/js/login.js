@@ -1,58 +1,55 @@
 ﻿$(document).ready(function () {
 
-    var logininfo = sessionStorage.getItem("user");
-
-    if (logininfo != null) {
-
-    }
-
-
-    $("#login").submit(function (e) {
-        e.preventDefault();
-        var inputid = $("#login_user_id").val();
-        var inputpwd = $("#login_user_pwd").val();
-
-        if (inputid == "" && inputpwd == "") {
-            alert("아이디와 비밀번호를 확인하세요!");
-            return false;
-        }
-        
-        var loginData = {
-            spName: "UserLogon",
-            id: $("#login_user_id").val(),
-            pwd: $("#login_user_pwd").val()
-        };
-
-        $.post("/select/Login", loginData).done(
-            function (data) {
-                var id = data[0].MemberId;
-                var pwd = data[0].MemberPassword;
-
-                if (inputid == id && inputpwd == pwd) {
-                    alert("아이디" + data[0].MemberId + "비번" + data[0].MemberPassword + "네임" +  data[0].MemberName);
-                }
-                else {
-                    alert("아이디와 비밀번호를 확인하세요!");
-                }
-        })
-    })
-
-
+    
+    //회원가입==============================================
     $("#Res").submit(function (e) {
         e.preventDefault();
         var registerData = {
-            spName: "Sing_up",
             id: $("#register_user_id").val(),
             pwd: $("#register_user_pwd").val(),
             name: $("#register_user_name").val()
         }
 
         $.post("/api/Register", registerData).done(
-            function () {
-                alter("success");
-                location.href = "/Home/Index";
+            function (data) {
+                var result = data;
+                console.log(result);
+                switch (result)
+                {
+                    case 1:
+                        alert("회원가입 성공");
+                        location.href = "/Home/Index";
+                        break;
+                    case 0:
+                        alert("회원가입 실패");
+                        break;
+                    default:
+                        alert("회원가입 실패");
+                        break;
+                }
             })
     });
 
+    //로그인
+    $("login").submit(function (e) {
+        e.preventDefault();
+        var loginData = {
+            id : $("#login_user_id").val(),
+            pwd : $("#login_user_pwd").val()
+        }
+
+        $.post("/api/Login", loginData).done(
+            function (data) {
+                var result = data;
+                switch (result) {
+                    case 1:
+                        break;
+                    case 0:
+                        break;
+                    default:
+                        break;
+                }
+        })
+    })
 });
 

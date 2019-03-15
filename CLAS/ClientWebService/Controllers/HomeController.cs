@@ -15,23 +15,6 @@ namespace ClientWebService.Controllers
             return View();
         }
 
-        public IActionResult Notice()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Board()
-        {
-            return View();
-        }
-
-        public IActionResult QnA()
-        {
-            return View();
-        }
-
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";

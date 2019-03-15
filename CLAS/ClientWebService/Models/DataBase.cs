@@ -85,6 +85,37 @@ namespace ClientWebService.Models
             }
         }
 
+        public int NonQuerys(string sql, Hashtable ht)
+        {
+            if (status)
+            {
+                try
+                {
+                    SqlCommand comm = new SqlCommand();
+                    comm.CommandText = sql;
+                    comm.Connection = conn;
+                    comm.CommandType = CommandType.StoredProcedure;
+
+                    foreach (DictionaryEntry data in ht)
+                    {
+
+                        comm.Parameters.AddWithValue(data.Key.ToString(), data.Value);
+                    }
+
+                    int cnt = comm.ExecuteNonQuery();
+                    return cnt;
+                }
+                catch
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
         public SqlDataReader Reader(string sql)
         {
             if (status)  //연결된 상태일 때만
