@@ -51,7 +51,8 @@ namespace CLAprogram.Views
             ht.Add("name", "Dash_lv");
             ht.Add("click", (MouseEventHandler)lv_Click);
             Dash_lv = comm.GetListView(ht,parentForm);
-
+            Dash_lv.Click += Dash_lv_Click;
+            Dash_lv.Columns.Add("bNo", 0, HorizontalAlignment.Center);
             Dash_lv.Columns.Add("No", 100, HorizontalAlignment.Center);
             Dash_lv.Columns.Add("제목", 150, HorizontalAlignment.Center);
             Dash_lv.Columns.Add("내용", 300, HorizontalAlignment.Center);
@@ -60,13 +61,31 @@ namespace CLAprogram.Views
             pnl_group.Controls.Add(Dash_lv);
 
             ht = new Hashtable();
-            ht.Add("size", new Size(180, 100));
-            ht.Add("point", new Point(760, 625));
+            ht.Add("size", new Size(100, 60));
+            ht.Add("point", new Point(610, 30));
             ht.Add("color", Color.Gainsboro);
             ht.Add("name", "delete");
             ht.Add("text", "삭제");
             ht.Add("click", (EventHandler)btn_Click);
-            btn_Board = comm.getButton(ht,parentForm);
+            btn_Board = comm.getButton(ht, parentForm);
+
+            ht = new Hashtable();
+            ht.Add("size", new Size(100, 60));
+            ht.Add("point", new Point(720, 30));
+            ht.Add("color", Color.Gainsboro);
+            ht.Add("name", "update");
+            ht.Add("text", "수정");
+            ht.Add("click", (EventHandler)btn_Click);
+            btn_Board = comm.getButton(ht, parentForm);
+
+            ht = new Hashtable();
+            ht.Add("size", new Size(100, 60));
+            ht.Add("point", new Point(830, 30));
+            ht.Add("color", Color.Gainsboro);
+            ht.Add("name", "write");
+            ht.Add("text", "글쓰기");
+            ht.Add("click", (EventHandler)btn_Click);
+            btn_Board = comm.getButton(ht, parentForm);
 
             ht = new Hashtable();
             ht.Add("width", 300);
@@ -92,6 +111,22 @@ namespace CLAprogram.Views
 
         }
 
+        private void Dash_lv_Click(object sender, EventArgs e)
+        {
+            ListView lv = (ListView)sender;
+            lv.FullRowSelect = true;
+            ListView.SelectedListViewItemCollection itemGroup = lv.SelectedItems;
+
+            for (int i = 0; i < itemGroup.Count; i++)
+            {
+                ListViewItem item = itemGroup[i];
+                
+                //MessageBox.Show(item.SubItems[0].Text);
+                bNo = item.SubItems[0].Text;
+            }
+        }
+
+
         /// <summary>
         /// 콤보박스 클릭 이벤트 
         /// 공지사항 / 커뮤니티 / QnA
@@ -104,29 +139,42 @@ namespace CLAprogram.Views
                 case 0:
                     nTitle = arr[0];
                     NoticeInfo_porc(cNo[0]);
-
-                    ht = new Hashtable();
-                    ht.Add("size", new Size(100, 60));
-                    ht.Add("point", new Point(850, 30));
-                    ht.Add("color", Color.Gainsboro);
-                    ht.Add("name", "write");
-                    ht.Add("text", "글쓰기");
-                    ht.Add("click", (EventHandler)btn_Click);
-                    btn_Board = comm.getButton(ht,parentForm);
-
                     break;
                 case 1:
                     nTitle = arr[1];
                     NoticeInfo_porc(cNo[1]);
-                    btn_Board.Visible = false;
+                    //btn_Board.Visible = false;
+                    
                     break;
                 case 2:
                     nTitle = arr[2];
                     NoticeInfo_porc(cNo[2]);
-                    btn_Board.Visible = false;
+                    //btn_Board.Visible = false;
                     break;
                 default:
                     break;
+            }
+        }
+
+      
+
+        private void lv_Click(object sender, MouseEventArgs e)
+        {
+            ListView lv = (ListView)sender;
+            lv.FullRowSelect = true;
+            ListView.SelectedListViewItemCollection itemGroup = lv.SelectedItems;
+
+            for (int i = 0; i < itemGroup.Count; i++)
+            {
+                ListViewItem item = itemGroup[i];
+                Subject = item.SubItems[2].Text;
+                //MessageBox.Show(Subject);
+                Content = item.SubItems[3].Text;
+                //MessageBox.Show(Content);
+                MessageBox.Show(item.SubItems[0].Text);
+                bNo = item.SubItems[0].Text;
+                detail_Info = new Detail_Info(nTitle, Subject, Content);
+                detail_Info.ShowDialog();
             }
         }
 
@@ -148,42 +196,25 @@ namespace CLAprogram.Views
                     MessageBox.Show("삭제되었습니다.");
                     NoticeInfo_porc(cNo[0]);
                     break;
-                case "write":
-                    detail_Info = new Detail_Info(cNo[0], UserNo);
+                case "update":
+                    detail_Info = new Detail_Info(nTitle, Subject, Content);
                     detail_Info.ShowDialog();
-                    NoticeInfo_porc(cNo[0]);
-                    //MessageBox.Show(UserNo);
+                    break;
+                case "write":
+                    detail_Info = new Detail_Info(UserNo);
+                    detail_Info.ShowDialog();
+                    Dash_lv.Items.Clear();
                     break;
                 default:
                     break;
             }
         }
 
-        private void lv_Click(object sender, MouseEventArgs e)
-        {
-            ListView lv = (ListView)sender;
-            lv.FullRowSelect = true;
-            ListView.SelectedListViewItemCollection itemGroup = lv.SelectedItems;
-
-            for (int i = 0; i < itemGroup.Count; i++)
-            {
-                ListViewItem item = itemGroup[i];
-                Subject = item.SubItems[2].Text;
-                Content = item.SubItems[3].Text;
-
-                //MessageBox.Show(bNo);
-
-                detail_Info = new Detail_Info(nTitle, Subject, Content);
-                detail_Info.ShowDialog();
-            }
-        }
-
-
         /// <summary>
         /// Contents 목록 조회
         /// </summary>
         /// 1 : 공지사항 /  2 : 커뮤니티 / 3 : QnA 
-        private void NoticeInfo_porc(string cNo)
+        public void NoticeInfo_porc(string cNo)
         {
             api = new WebAPI();
             ht = new Hashtable();
@@ -197,7 +228,6 @@ namespace CLAprogram.Views
             foreach (JObject row in list)
             {
                 UserNo = row["MemberNo"].ToString();
-                bNo = row["bNo"].ToString();
                 Hashtable ht = new Hashtable();
                 foreach (JProperty col in row.Properties())
                 {
@@ -207,7 +237,7 @@ namespace CLAprogram.Views
             }
             foreach (Hashtable ht in result)
             {
-                Dash_lv.Items.Add(new ListViewItem(new string[] { ht["sort"].ToString(), ht["bTitle"].ToString(), ht["bContents"].ToString(), ht["MemberName"].ToString(), ht["regDate"].ToString() }));
+                Dash_lv.Items.Add(new ListViewItem(new string[] { ht["bNo"].ToString(), ht["sort"].ToString(), ht["bTitle"].ToString(), ht["bContents"].ToString(), ht["MemberName"].ToString(), ht["regDate"].ToString() }));
             }
            
         }

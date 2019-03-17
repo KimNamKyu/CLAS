@@ -89,7 +89,6 @@ namespace CLAprogram.Models
 
         public bool Post(string url, Hashtable ht)
         {
-            MessageBox.Show(url);
             try
             {
                 WebClient wc = new WebClient();

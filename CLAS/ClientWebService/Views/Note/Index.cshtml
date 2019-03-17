@@ -1,17 +1,17 @@
 ﻿@{
-    ViewData["Title"] = "Coummnity";
     Layout = "_ViewCommo";
 }
-<script type="text/javascript" src="~/js/Content/Board.js"></script>
+<script>var cNo = @ViewData["cNo"];</script>
+<script type="text/javascript" src="~/js/Content/Note.js"></script>
 <section class="dan">
     <div id="lvContent" class="BoardList0">
-        <span class="BoardList1"><h2>커뮤니티</h2></span>
+        <span class="BoardList1"><h2>@ViewData["TitleName"]</h2></span>
     </div>
 </section>
 <section class="dan">
     <div class="group_member">
         <div class="create_notice">
-            <a href="#" class="btn-wide">새 글 쓰기</a>
+            <a asp-controller="Note" asp-action="Create" class="btn-wide">새 글 쓰기</a>
         </div>
         <div class="form_data">
             <form id="form" onsubmin="return false;">
@@ -33,5 +33,6 @@
             </thead>
             <tbody></tbody>
         </table>
+        <div id="paging"></div>
     </div>
 </section>

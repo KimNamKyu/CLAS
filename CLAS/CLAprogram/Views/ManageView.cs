@@ -31,6 +31,7 @@ namespace CLAprogram.Views
             this.parentForm = parentForm;
             comm = new Commons();
             GetView();
+            parentForm.FormClosed += new FormClosedEventHandler(Exit_click);
         }
 
         private void GetView()
@@ -160,5 +161,10 @@ namespace CLAprogram.Views
                     break;
             }
         }
+        private void Exit_click(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
+
     }
 }

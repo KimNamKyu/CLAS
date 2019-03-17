@@ -1,4 +1,5 @@
 ﻿using CLAprogram.Models;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Drawing;
@@ -10,6 +11,7 @@ namespace CLAprogram.Views
     {
         private Form parentForm;
         private Commons comm;
+        private ComboBox comboCategory;
         private WebAPI api;
         private Hashtable ht;
         private Panel pnl_group;
@@ -17,16 +19,16 @@ namespace CLAprogram.Views
         private Label lb_title;
         private Panel pnl_item_title;
         private TextBox txt_content;
-        private string cNo, nTitle, Subject, Content, UserNo; // 공지사항 넘버   // 상단분류 / 제목 / 내용
-        //NoticeInfo NI = new NoticeInfo();
+        private string nTitle, Subject, Content, UserNo; // 공지사항 넘버   // 상단분류 / 제목 / 내용
         private TextBox txt_Title;
         private Button btn_Board;
-      
+        private string[] arr;
+        public string DvcNo;
+        private string[] _cNo;
 
-        public DetailView(Form parentForm, string cNo,  string UserNo)
+        public DetailView(Form parentForm,  string UserNo)
         {
             this.parentForm = parentForm;
-            this.cNo = cNo;
             this.UserNo = UserNo;
             comm = new Commons();
             getView();
@@ -64,16 +66,6 @@ namespace CLAprogram.Views
             pnl_item.BorderStyle = BorderStyle.FixedSingle;
 
 
-            ht = new Hashtable();
-            ht.Add("point", new Point(10, 15));
-            ht.Add("color", Color.WhiteSmoke);
-            ht.Add("name", "title");
-            ht.Add("text", "분류");
-            lb_title = comm.getLabel(ht,pnl_item);
-            lb_title.Font = new Font("Microsoft Sans Serif", 30);
-            lb_title.Size = new Size(300, 50);
-            lb_title.Text = "공지사항";
-
 
             ht = new Hashtable();
             ht.Add("size", new Size(758, 678));
@@ -86,6 +78,17 @@ namespace CLAprogram.Views
         }
         private void DetailGetView()
         {
+            ht = new Hashtable();
+            ht.Add("point", new Point(10, 15));
+            ht.Add("color", Color.WhiteSmoke);
+            ht.Add("name", "title");
+            ht.Add("text", "분류");
+            lb_title = comm.getLabel(ht, pnl_item);
+            lb_title.Font = new Font("Microsoft Sans Serif", 30);
+            lb_title.Size = new Size(300, 50);
+            lb_title.Text = nTitle;
+
+           
             ht = new Hashtable();
             ht.Add("point", new Point(28, 15));
             ht.Add("color", Color.WhiteSmoke);
@@ -111,6 +114,8 @@ namespace CLAprogram.Views
             txt_content.Text = Content;
             pnl_item_title.Controls.Add(txt_content);
         }
+
+
         private void WriteGetView()
         {
             ht = new Hashtable();
@@ -143,6 +148,7 @@ namespace CLAprogram.Views
             txt_Title.ForeColor = Color.Silver;
             txt_Title.Enter += Txt_Title_Enter;
             txt_Title.Leave += Txt_Title_Leave;
+            
 
             ht = new Hashtable();
             ht.Add("width", 700);
@@ -158,6 +164,50 @@ namespace CLAprogram.Views
             txt_content.Leave += Txt_Leave;
             txt_content.BorderStyle = BorderStyle.FixedSingle;
             Content = txt_content.Text;
+
+
+
+            ht = new Hashtable();
+            ht.Add("width", 300);
+            ht.Add("point", new Point(40, 30));
+            ht.Add("color", Color.Gainsboro);
+            ht.Add("font", new Font("맑은고딕", 14, FontStyle.Bold));
+            ht.Add("name", "comboCategory");
+            comboCategory = comm.getComboBox(ht, pnl_item);
+            api = new WebAPI();
+            ArrayList list = api.SelectCategory("http://localhost:5000/select/Category");
+            
+            arr = new string[list.Count];
+            _cNo = new string[list.Count];
+            for (int i = 0; i < list.Count; i++)
+            {
+                JArray j = (JArray)list[i];
+                _cNo[i] = j.Value<string>(0).ToString();
+                arr[i] = j.Value<string>(1).ToString();
+            }
+
+            comboCategory.SelectedIndexChanged += ComboCategory_SelectedIndexChanged;
+            comboCategory.Items.AddRange(arr);
+            comboCategory.Font = new Font("맑은 고딕", 13, FontStyle.Bold);
+        }
+
+        private void ComboCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox comboBox = (ComboBox)sender;
+            switch (comboBox.SelectedIndex)
+            {
+                case 0:
+                    DvcNo = _cNo[0];
+                    break;
+                case 1:
+                    DvcNo = _cNo[1];
+                    break;
+                case 2:
+                    DvcNo = _cNo[2];
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void btn_Click(object sender, EventArgs e)
@@ -169,7 +219,7 @@ namespace CLAprogram.Views
                     api = new WebAPI();
                     ht = new Hashtable();
                     ht.Add("spName", "Board_Insert_proc");
-                    ht.Add("cNo", cNo);
+                    ht.Add("cNo", DvcNo);
                     ht.Add("bTitle", txt_Title.Text);
                     ht.Add("bContents", txt_content.Text);
                     ht.Add("MemberNo", UserNo);

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ClientWebService.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace ClientWebService.Controllers
 {
@@ -14,22 +15,32 @@ namespace ClientWebService.Controllers
     {
         [Route("api/Login")]
         [HttpPost]
-        public int select([FromForm]string id, [FromForm]string pwd)
+        public ArrayList select([FromForm]string id, [FromForm]string pwd)
         {
             Hashtable ht = new Hashtable();
             ht.Add("@UserId", id);
             ht.Add("@UserPwd", pwd);
             DataBase db = new DataBase();
-            int result = db.NonQuerys("UserLogon", ht);
-            HttpContext.Session.SetInt32("USER_LOGIN_KEY", result);
+            ArrayList resultArray = db.GetList("UserLogon", ht);
             db.Close();
-            return result;
+            Hashtable row = (Hashtable)resultArray[0];
+            //int state = Convert.ToInt32(row["state"]);
+            //string MemberName = row["MemberName"].ToString();
+            //if (state > 0)
+            //{
+            //  ISession session = Request.HttpContext.Session;
+            //  session.SetString("USER_LOGIN_KEY", MemberName);
+            //  Console.WriteLine("USER_LOGIN_KEY : {0}", session.GetString("USER_LOGIN_KEY"));
+            //  HttpContext.Session.SetString("USER_LOGIN_KEY", MemberName);
+            //  Console.WriteLine("USER_LOGIN_KEY : {0}", HttpContext.Session.GetString("USER_LOGIN_KEY"));
+            //}
+            return resultArray;
         }
 
         [Route("api/Register")]
         [HttpPost]
         public int Register([FromForm]string id, [FromForm]string pwd, [FromForm]string name)
-        { 
+        {
             Hashtable ht = new Hashtable();
             ht.Add("@UserId", id);
             ht.Add("@UserPwd", pwd);

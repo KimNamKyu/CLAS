@@ -20,9 +20,9 @@ namespace CLAprogram.Forms
             Load += load.GetHandler("detail_info");
         }
 
-        public Detail_Info(string cNo, string UserNo)
+        public Detail_Info( string UserNo)
         {
-            Load load = new Load(this,cNo,UserNo);
+            Load load = new Load(this,UserNo);
             Load += load.GetHandler("detail_write");
         }
     }

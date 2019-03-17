@@ -26,7 +26,7 @@ namespace CLAprogram.Views
         private TextBox txt_login;
         private TextBox txt_pwd;
         private Button btn_login;
-        private ManageForm tagetForm;
+        private ManageForm targetForm;
         private Label lb_logo;
 
         public MainView(Form parentForm)
@@ -155,12 +155,11 @@ namespace CLAprogram.Views
 
             if (id == txt_login.Text && pwd == txt_pwd.Text)
             {
-                tagetForm = new ManageForm
-                {
-                    StartPosition = FormStartPosition.CenterScreen
-                };
-                tagetForm.FormClosed += new FormClosedEventHandler(Exit_click);
-                tagetForm.Show();
+                targetForm = new ManageForm();
+                this.parentForm.Hide();
+                targetForm.StartPosition = FormStartPosition.CenterScreen;
+                //tagetForm.FormClosed += new FormClosedEventHandler(Exit_click);
+                targetForm.Show();
             }
             else
             {

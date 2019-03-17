@@ -13,7 +13,6 @@ namespace CLAprogram.Models
     class Load
     {
         private Form parentForm;
-        private string cNo;
         private string nTitle;
         private string Subject;
         private string Content;
@@ -33,10 +32,9 @@ namespace CLAprogram.Models
             this.Content = Content;
         }
 
-        public Load(Form parentForm, string cNo, string UserNo)
+        public Load(Form parentForm, string UserNo)
         {
             this.parentForm = parentForm;
-            this.cNo = cNo;
             this.UserNo = UserNo;
         }
 
@@ -73,7 +71,7 @@ namespace CLAprogram.Models
             parentForm.MaximizeBox = false;
             parentForm.MinimizeBox = false;
             parentForm.Text = "글쓰기 화면";
-            new DetailView(parentForm, cNo, UserNo);
+            new DetailView(parentForm, UserNo);
         }
 
         private void GetDetailLoad(object sender, EventArgs e)
@@ -134,8 +132,8 @@ namespace CLAprogram.Models
         {
             parentForm.Size = new Size(800, 600);
             parentForm.FormBorderStyle = FormBorderStyle.FixedSingle;
-            parentForm.MaximizeBox = false;
-            parentForm.MinimizeBox = false;
+            //parentForm.MaximizeBox = false;
+            //parentForm.MinimizeBox = false;
             parentForm.Text = "메인화면";
             new MainView(parentForm);
         }

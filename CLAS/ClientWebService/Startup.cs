@@ -30,7 +30,7 @@ namespace ClientWebService
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
+            services.AddSession();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -46,6 +46,7 @@ namespace ClientWebService
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.UseSession();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 

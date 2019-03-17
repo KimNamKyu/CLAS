@@ -1,0 +1,56 @@
+﻿
+@{
+    Layout = "_ViewCommo";
+}
+<script>var bNo = @ViewData["bNo"];</script>
+<script type="text/javascript" src="~/js/Content/Detail.js"></script>
+<h2>Detail</h2>
+<div class="content">
+    <div class="detail">
+        <div class="detail-head">
+            <div class="avatar">
+                <a id="MemberName">작성자</a>
+                <div class="suject" id="regDate">
+                    작성날짜
+                </div>
+            </div>
+        </div>
+        <div class="detail-content">
+            <div class="content_body">
+                <h2 id="bTitle">Title</h2>
+                <hr>
+            </div>
+            <article class="content-text">
+                <p id="bContents">내용</p>
+            </article>
+        </div>
+    </div>
+    <div class="detail">
+        <div class="detail-head">
+            <div class="avatar">
+                <p>댓글 0</p>
+            </div>
+        </div>
+        <ul id="reply"></ul>
+
+        <ul id="note-title" class="list-group-QnA">
+            <li class="list-group-item">
+                <div class="avatar">
+                    <p id="userName"></p>
+                </div>
+                <form id="replyform" class="form-horizontal" method="post">
+                    <div class="text-danger">
+                        <div class="form-center">
+                            <textarea id="content" class="form-text" rows="20" placeholder="댓글 입력"></textarea>
+                        </div>
+                        <div class="form-center">
+                            <a id="cancel_btn" class="btn-default">취소</a>
+                            <button type="submit" class="btn-right">등록</button>
+                        </div>
+                    </div>
+                </form>
+            </li>
+        </ul>
+    </div>
+</div>
+

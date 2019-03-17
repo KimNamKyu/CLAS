@@ -1,0 +1,45 @@
+﻿
+@{
+    Layout = "_ViewCommo";
+}
+<script type="text/javascript" src="~/js/Content/create.js"></script>
+
+<div id="lvContent" class="BoardList0">
+    <span class="BoardList1"><h2>새 글 쓰기</h2></span>
+</div>
+
+<div class="content">
+    <div class="detail">
+        <div class="detail-head">
+            <div class="avatar">
+                <a id="MemberName">작성자</a>
+
+            </div>
+        </div>
+        <div class="detail-content">
+            <div class="content_body">
+                <form id="NoteInsert" class="form-horizontal" method="post" onsubmin="return false">
+                    <div class="text-danger">
+                        <div class="form-group">
+                            <select id="selectBox" class="form-select">
+                                <option value="1">게시물 선택 해주세요</option>
+                                <option value="2">커뮤니티</option>
+                                <option value="3">질문 및 답변</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input id="title" type="text" class="form-title" placeholder="제목 입력" />
+                        </div>
+                        <div class="form-group">
+                            <textarea id="content" class="form-content" rows="20" placeholder="내용 입력"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <a href="/Home/Index" class="btn-default">취소</a>
+                            <input id="create" type="submit" class="btn-primary" value="저장">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

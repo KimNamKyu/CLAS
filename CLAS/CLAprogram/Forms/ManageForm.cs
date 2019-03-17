@@ -19,5 +19,13 @@ namespace CLAprogram.Forms
             Load load = new Load(this);
             Load += load.GetHandler("manage");
         }
+
+        public ManageForm(Form _form)
+        {
+            InitializeComponent();
+            Load load = new Load(this);
+            Load += load.GetHandler("manage");
+        }
+
     }
 }
