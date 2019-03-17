@@ -395,6 +395,7 @@ hr {
     background: #449d44;
     border-radius: 10px;
     margin-left: 393px;
+    cursor: pointer;
 }
 
 .btn-default {

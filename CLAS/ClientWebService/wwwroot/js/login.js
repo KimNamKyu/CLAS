@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
 
-
+    var uNo = window.sessionStorage.getItem('uNo');
     //회원가입==============================================
     $("#Res").submit(function (e) {
         e.preventDefault();
@@ -52,6 +52,7 @@
                     sessionStorage.setItem("uNo", uNo);
                     sessionStorage.setItem("uName", uName);
                     location.href = "/Home";
+
                 }
                 else {
                     $("#login_user_id").val("");
@@ -73,9 +74,13 @@
     }
 
     $("#logout").click(function () {
+
+        $.post("/update/Mapping", { mNo: uNo })
+            .done(function (data) { })
         alert("로그아웃되었습니다.");
         sessionStorage.clear();
         location.href = "/Home";
     });
 });
 
+    

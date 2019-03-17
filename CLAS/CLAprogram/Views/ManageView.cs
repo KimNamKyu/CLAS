@@ -2,12 +2,9 @@
 using CLAprogram.Models;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace CLAprogram.Views
 {
@@ -25,6 +22,7 @@ namespace CLAprogram.Views
         private Hashtable ht;
         private Button btn_Board;
         private PictureBox img;
+        private Chart Chart;
 
         public ManageView(Form parentForm)
         {
@@ -60,9 +58,11 @@ namespace CLAprogram.Views
             ht = new Hashtable();
             ht.Add("size", new Size(1200, 900));
             ht.Add("point", new Point(200, 20));
-            ht.Add("color", Color.Yellow);
+            ht.Add("color", Color.Gainsboro);
             ht.Add("name", "group");
             pnl_mdi = comm.getPanel(ht,parentForm);
+
+           
 
             ht = new Hashtable();
             ht.Add("image", (Bitmap)Properties.Resources.ResourceManager.GetObject("CLALogo"));
@@ -114,6 +114,12 @@ namespace CLAprogram.Views
             btn_Board = comm.getButton(ht, pnl_group);
             btn_Board.Font = new Font("Microsoft Sans Serif", 14, FontStyle.Bold);
             btn_Board.ForeColor = Color.White;
+
+            HomeForm home = new HomeForm();
+            home.MdiParent = parentForm;
+            pnl_mdi.Controls.Add(home);
+            home.Show();
+
         }
 
         private void btn_Click(object sender, EventArgs e)
@@ -126,6 +132,10 @@ namespace CLAprogram.Views
                     pnl_select.Height = btn_home.Height;
                     pnl_select.Top = btn_home.Top;
                     btn_home.BringToFront();
+                    HomeForm home = new HomeForm();
+                    home.MdiParent = parentForm;
+                    pnl_mdi.Controls.Add(home);
+                    home.Show();
                     break;
 
                 case "btn_board":

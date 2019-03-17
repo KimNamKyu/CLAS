@@ -1,7 +1,8 @@
 ﻿$(document).ready(function () {
+    var uNo = window.sessionStorage.getItem('uNo');
     var createView = function (cNo, taget) {
         $.post("/select", { spName: "Board_Proc", param: "@cNo:" + cNo })
-         .done(function (data) {
+            .done(function (data) {
                 $(taget).empty();
                 for (var i = 0; i < 6; i++) {
                     if (data.length == i) break;
@@ -19,13 +20,28 @@
                         "</div>" +
                         "</li>";
                     $(taget).append(html);
-                 }
-             });
-         });
+                }
+            });
     }
+
+    $.post("/insert/Mapping", { urlNo: "4", mNo: uNo })
+        .done(function (data) {
+            var result = data;
+        });
+        
+        
+    var state = window.sessionStorage.getItem('state');
+    if (state == null) {
+        $.post("/update/NouserCnt", { urlNo: "4" })
+    }
+
     createView(1, ".list-group-board");
     createView(2, ".list-group-Notice");
     createView(3, ".list-group-QnA");
+
+    
+    
+   
 });
 
 

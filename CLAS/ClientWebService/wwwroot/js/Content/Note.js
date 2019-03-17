@@ -86,7 +86,16 @@
                         });
                     });
             })        });
+    var uNo = window.sessionStorage.getItem('uNo');
+    $.post("/insert/Mapping", { urlNo: cNo, mNo: uNo })
+        .done(function (data) {
+            var result = data;
+        });
 
+    var state = window.sessionStorage.getItem('state');
+    if (state == null) {
+        $.post("/update/NouserCnt", { urlNo: cNo })
+    }
     /*=============================검색 기능 처리 부분===================================*/
     
         //$("#form").submit(function (e) {

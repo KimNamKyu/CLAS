@@ -57,9 +57,21 @@ namespace CLAprogram.Models
                     return GetDetailLoad;
                 case "detail_write":
                     return GetDetailwriteLoad;
+                case "home":
+                    return GetHomeLoad;
                 default:
                     return null;
             }
+        }
+
+        private void GetHomeLoad(object sender, EventArgs e)
+        {
+            form = new FormLoad();
+            form.GetLoad(parentForm, "SDI");
+            parentForm.WindowState = FormWindowState.Maximized;
+            parentForm.FormBorderStyle = FormBorderStyle.None;
+
+            new HomeView(parentForm);
         }
 
         private void GetDetailwriteLoad(object sender, EventArgs e)

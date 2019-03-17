@@ -42,8 +42,6 @@ namespace CLAprogram.Views
             chart.Series[0].MarkerSize = 4;
             //chart.ChartAreas[0].AxisX.Interval = 1;
            
-           
-
             ht = new Hashtable();
             ht.Add("size", new Size(900, 300));
             ht.Add("point", new Point(40, 420));
@@ -109,7 +107,7 @@ namespace CLAprogram.Views
             foreach (Hashtable ht in result)
             {
                 chart.Series[0].Points.Add(Convert.ToInt32(ht["uView"].ToString()));
-                Dash_lv.Items.Add(new ListViewItem(new string[] { ht["UrlNo"].ToString(), ht["UrlName"].ToString(), ht["UrlPath"].ToString(), ht["regDate"].ToString(), ht["uView"].ToString() }));
+                Dash_lv.Items.Add(new ListViewItem(new string[] { ht["UrlNo"].ToString(), ht["UrlName"].ToString(), ht["UrlPath"].ToString(), ht["uView"].ToString() }));
             }
         }
     }
