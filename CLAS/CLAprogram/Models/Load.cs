@@ -17,15 +17,16 @@ namespace CLAprogram.Models
         private string Subject;
         private string Content;
         private FormLoad form;
-        private string UserNo;
+        private string bNo;
 
         public Load(Form parentForm)
         {
             this.parentForm = parentForm;
         }
 
-        public Load(Form parentForm,string nTitle, string Subject, string Content)
+        public Load(Form parentForm,string bNo,string nTitle, string Subject, string Content)
         {
+            this.bNo = bNo;
             this.parentForm = parentForm;
             this.nTitle = nTitle;
             this.Subject = Subject;
@@ -35,7 +36,7 @@ namespace CLAprogram.Models
         public Load(Form parentForm, string UserNo)
         {
             this.parentForm = parentForm;
-            this.UserNo = UserNo;
+            this.bNo = UserNo;
         }
 
 
@@ -83,7 +84,7 @@ namespace CLAprogram.Models
             parentForm.MaximizeBox = false;
             parentForm.MinimizeBox = false;
             parentForm.Text = "글쓰기 화면";
-            new DetailView(parentForm, UserNo);
+            new DetailView(parentForm, bNo);
         }
 
         private void GetDetailLoad(object sender, EventArgs e)
@@ -95,7 +96,7 @@ namespace CLAprogram.Models
             parentForm.MaximizeBox = false;
             parentForm.MinimizeBox = false;
             parentForm.Text = "게시물 상세 화면";
-            new DetailView(parentForm,nTitle,Subject,Content);
+            new DetailView(parentForm,bNo,nTitle,Subject,Content);
         }
 
         private void GetDashBoardLoad(object sender, EventArgs e)

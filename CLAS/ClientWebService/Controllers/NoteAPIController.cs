@@ -87,5 +87,29 @@ namespace ClientWebService.Controllers
             db.Close();
             return result;
         }
+
+        [Route("update/Noteinfo")]
+        [HttpPost]
+        public string Noteupdate([FromForm] string bNo, [FromForm] string bTitle, [FromForm] string bContents)
+        {
+            Console.WriteLine("spName :Board_update_proc, bNo : {1}", bNo);
+            Hashtable ht = new Hashtable();
+            ht.Add("@bTitle", bTitle);
+            ht.Add("@bContents", bContents);
+            ht.Add("@bNo", bNo);
+            DataBase db = new DataBase();
+            if (db.NonQuery("Board_update_proc", ht))
+            {
+                Console.WriteLine("======> 성공");
+                db.Close();
+                return "1";
+            }
+            else
+            {
+                Console.WriteLine("======> 실패");
+                db.Close();
+                return "0";
+            }
+        }
     }
 }

@@ -19,7 +19,7 @@ namespace CLAprogram.Views
         private Label lb_title;
         private Panel pnl_item_title;
         private TextBox txt_content;
-        private string nTitle, Subject, Content, UserNo; // 공지사항 넘버   // 상단분류 / 제목 / 내용
+        private string nTitle, Subject, Content, bNo; // 공지사항 넘버   // 상단분류 / 제목 / 내용
         private TextBox txt_Title;
         private Button btn_Board;
         private string[] arr;
@@ -29,14 +29,15 @@ namespace CLAprogram.Views
         public DetailView(Form parentForm,  string UserNo)
         {
             this.parentForm = parentForm;
-            this.UserNo = UserNo;
+            this.bNo = UserNo;
             comm = new Commons();
             getView();
             WriteGetView();
         }
 
-        public DetailView(Form parentForm, string nTitle, string Subject, string Content)
+        public DetailView(Form parentForm, string bNo, string nTitle, string Subject, string Content)
         {
+            this.bNo = bNo;
             this.parentForm = parentForm;
             this.nTitle = nTitle;
             this.Subject = Subject;
@@ -65,8 +66,6 @@ namespace CLAprogram.Views
             pnl_item = comm.getPanel(ht,pnl_group);
             pnl_item.BorderStyle = BorderStyle.FixedSingle;
 
-
-
             ht = new Hashtable();
             ht.Add("size", new Size(758, 678));
             ht.Add("point", new Point(0, 80));
@@ -78,6 +77,33 @@ namespace CLAprogram.Views
         }
         private void DetailGetView()
         {
+            ht = new Hashtable();
+            ht.Add("size", new Size(100, 60));
+            ht.Add("point", new Point(410, 10));
+            ht.Add("color", Color.Gainsboro);
+            ht.Add("name", "등록");
+            ht.Add("text", "등록");
+            ht.Add("click", (EventHandler)btn_Click);
+            btn_Board = comm.getButton(ht, pnl_item);
+
+            ht = new Hashtable();
+            ht.Add("size", new Size(100, 60));
+            ht.Add("point", new Point(520, 10));
+            ht.Add("color", Color.Gainsboro);
+            ht.Add("name", "수정");
+            ht.Add("text", "수정");
+            ht.Add("click", (EventHandler)btn_Click);
+            btn_Board = comm.getButton(ht, pnl_item);
+
+            ht = new Hashtable();
+            ht.Add("size", new Size(100, 60));
+            ht.Add("point", new Point(630, 10));
+            ht.Add("color", Color.Gainsboro);
+            ht.Add("name", "취소");
+            ht.Add("text", "취소");
+            ht.Add("click", (EventHandler)btn_Click);
+            btn_Board = comm.getButton(ht, pnl_item);
+
             ht = new Hashtable();
             ht.Add("point", new Point(10, 15));
             ht.Add("color", Color.WhiteSmoke);
@@ -101,6 +127,20 @@ namespace CLAprogram.Views
 
             ht = new Hashtable();
             ht.Add("width", 700);
+            ht.Add("font", new Font("Microsoft Sans Serif", 25));
+            ht.Add("point", new Point(28, 15));
+            ht.Add("name", "제목");
+            txt_Title = comm.getTextBox(ht, pnl_item_title);
+            txt_Title.Multiline = true;
+            txt_Title.Height = 50;
+            txt_Title.BorderStyle = BorderStyle.FixedSingle;
+            txt_Title.ForeColor = Color.Black;
+            txt_Title.Enter += Txt_Title_Enter;
+            txt_Title.Leave += Txt_Title_Leave;
+            txt_Title.Visible = false;
+
+            ht = new Hashtable();
+            ht.Add("width", 700);
             ht.Add("font", new Font("Microsoft Sans Serif", 20));
             ht.Add("point", new Point(28, 80));
             ht.Add("name", "내용");
@@ -118,6 +158,7 @@ namespace CLAprogram.Views
 
         private void WriteGetView()
         {
+            
             ht = new Hashtable();
             ht.Add("size", new Size(100, 60));
             ht.Add("point", new Point(520, 10));
@@ -145,7 +186,7 @@ namespace CLAprogram.Views
             txt_Title.Multiline = true;
             txt_Title.Height = 50;
             txt_Title.BorderStyle = BorderStyle.FixedSingle;
-            txt_Title.ForeColor = Color.Silver;
+            txt_Title.ForeColor = Color.Black;
             txt_Title.Enter += Txt_Title_Enter;
             txt_Title.Leave += Txt_Title_Leave;
             
@@ -222,13 +263,31 @@ namespace CLAprogram.Views
                     ht.Add("cNo", DvcNo);
                     ht.Add("bTitle", txt_Title.Text);
                     ht.Add("bContents", txt_content.Text);
-                    ht.Add("MemberNo", UserNo);
+                    ht.Add("MemberNo", bNo);
                     if (!api.Post("http://localhost:5000/insert/Note", ht))
                     {
                         MessageBox.Show("추가실패");
                     }
                     MessageBox.Show("공지사항 추가되었습니다.");
                     parentForm.Dispose();
+                    break;
+                case "등록":
+                    api = new WebAPI();
+                    ht = new Hashtable();
+                    ht.Add("bNo", bNo);
+                    ht.Add("bTitle", txt_Title.Text);
+                    ht.Add("bContents", txt_content.Text);
+                    if (!api.Post("http://localhost:5000/update/Noteinfo", ht))
+                    {
+                        MessageBox.Show("수정실패");
+                    }
+                    
+                    parentForm.Dispose();
+                    break;
+                case "수정":
+                    lb_title.Visible = false;
+                    txt_content.Enabled = true;
+                    txt_Title.Visible = true;
                     break;
                 case "취소":
                     parentForm.Dispose();

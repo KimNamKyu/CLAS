@@ -13,10 +13,10 @@ namespace CLAprogram.Forms
 {
     public partial class Detail_Info : Form
     {
-        public Detail_Info(string nTitle, string Subject, string Content)
+        public Detail_Info(string bNo, string nTitle, string Subject, string Content)
         {
             InitializeComponent();
-            Load load = new Load(this, nTitle,Subject,Content);
+            Load load = new Load(this, bNo,nTitle,Subject,Content);
             Load += load.GetHandler("detail_info");
         }
 

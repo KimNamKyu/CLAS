@@ -50,5 +50,27 @@ namespace ClientWebService.Controllers
             db.Close();
             return result;
         }
+
+        
+
+        [Route("api/deleteMember")]
+        [HttpPost]
+        public string delete([FromForm]string mNo)
+        {
+            Hashtable ht = new Hashtable();
+            ht.Add("@mNo", mNo);
+            DataBase db = new DataBase();
+            if (db.NonQuery("Member_delete_proc", ht))
+            {
+                db.Close();
+                return "1";
+            }
+            else
+            {
+                db.Close();
+                return "0";
+            }
+        }
+
     }
 }

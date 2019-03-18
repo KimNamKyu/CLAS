@@ -15,6 +15,9 @@ namespace CLAprogram.Views
         private Commons comm;
         private Panel pnl_group;
         private WebAPI api;
+        private Panel pnl_top;
+        private Panel pnl_center;
+        private Panel pnl_bottom;
         private Hashtable ht;
         private Button btn_Board;
         private ComboBox comboCategory;
@@ -28,72 +31,97 @@ namespace CLAprogram.Views
         private string bNo;
         public string UserNo;
         private Detail_Info detail_Info;
+        private Label lb_title;
+        private string BNo;
 
         public NoticeView(Form parentForm)
         {
             this.parentForm = parentForm;
             comm = new Commons();
             GetView();
+            parentForm.BackColor = Color.DimGray;
         }
 
         private void GetView()
         {
             ht = new Hashtable();
-            ht.Add("size", new Size(900, 500));
-            ht.Add("point", new Point(40, 100));
+            ht.Add("size", new Size(960, 70));
+            ht.Add("point", new Point(10, 10));
             ht.Add("color", Color.Gainsboro);
             ht.Add("name", "group");
-            pnl_group = comm.getPanel(ht,parentForm);
+            pnl_group = comm.getPanel(ht, parentForm);
+
+
+            ht = new Hashtable();
+            ht.Add("size", new Size(960, 750));
+            ht.Add("point", new Point(10, 80));
+            ht.Add("color", Color.Gainsboro);
+            ht.Add("name", "center");
+            pnl_center = comm.getPanel(ht, parentForm);
+
+            ht = new Hashtable();
+            ht.Add("size", new Size(940, 70));
+            ht.Add("point", new Point(10, 10));
+            ht.Add("color", Color.FromArgb(0, 89, 171));
+            ht.Add("name", "top");
+            pnl_top = comm.getPanel(ht, pnl_center);
+
+            ht = new Hashtable();
+            ht.Add("size", new Size(940, 660));
+            ht.Add("point", new Point(10, 80));
+            ht.Add("color", Color.DimGray);
+            ht.Add("name", "bottom");
+            pnl_bottom = comm.getPanel(ht, pnl_center);
 
             ht = new Hashtable();
             //ht.Add("size", new Size(500, 300));
             ht.Add("color", Color.Gainsboro);
             ht.Add("name", "Dash_lv");
             ht.Add("click", (MouseEventHandler)lv_Click);
-            Dash_lv = comm.GetListView(ht,parentForm);
+            Dash_lv = comm.GetListView(ht, pnl_bottom);
             Dash_lv.Click += Dash_lv_Click;
             Dash_lv.Columns.Add("bNo", 0, HorizontalAlignment.Center);
-            Dash_lv.Columns.Add("No", 100, HorizontalAlignment.Center);
-            Dash_lv.Columns.Add("제목", 150, HorizontalAlignment.Center);
-            Dash_lv.Columns.Add("내용", 300, HorizontalAlignment.Center);
+            Dash_lv.Columns.Add("No", 50, HorizontalAlignment.Center);
+            Dash_lv.Columns.Add("제목", 190, HorizontalAlignment.Center);
+            Dash_lv.Columns.Add("내용", 350, HorizontalAlignment.Center);
             Dash_lv.Columns.Add("작성자", 100, HorizontalAlignment.Center);
             Dash_lv.Columns.Add("작성일", 240, HorizontalAlignment.Center);
-            pnl_group.Controls.Add(Dash_lv);
-
+                                    
             ht = new Hashtable();
-            ht.Add("size", new Size(100, 60));
-            ht.Add("point", new Point(610, 30));
-            ht.Add("color", Color.Gainsboro);
+            ht.Add("size", new Size(100, 40));
+            ht.Add("point", new Point(740, 20));
+            ht.Add("color", Color.WhiteSmoke);
             ht.Add("name", "delete");
             ht.Add("text", "삭제");
             ht.Add("click", (EventHandler)btn_Click);
-            btn_Board = comm.getButton(ht, parentForm);
+            btn_Board = comm.getButton(ht, pnl_group);
 
             ht = new Hashtable();
-            ht.Add("size", new Size(100, 60));
-            ht.Add("point", new Point(720, 30));
-            ht.Add("color", Color.Gainsboro);
-            ht.Add("name", "update");
-            ht.Add("text", "수정");
-            ht.Add("click", (EventHandler)btn_Click);
-            btn_Board = comm.getButton(ht, parentForm);
-
-            ht = new Hashtable();
-            ht.Add("size", new Size(100, 60));
-            ht.Add("point", new Point(830, 30));
-            ht.Add("color", Color.Gainsboro);
+            ht.Add("size", new Size(100, 40));
+            ht.Add("point", new Point(845, 20));
+            ht.Add("color", Color.WhiteSmoke);
             ht.Add("name", "write");
             ht.Add("text", "글쓰기");
             ht.Add("click", (EventHandler)btn_Click);
-            btn_Board = comm.getButton(ht, parentForm);
+            btn_Board = comm.getButton(ht, pnl_group);
+
+            ht = new Hashtable();
+            ht.Add("point", new Point(28, 15));
+            ht.Add("color", Color.WhiteSmoke);
+            ht.Add("name", "title");
+            ht.Add("text", "게시물 정보 관리");
+            lb_title = comm.getLabel(ht, pnl_top);
+            lb_title.Font = new Font("Microsoft Sans Serif", 25);
+            lb_title.Size = new Size(700, 60);
+            lb_title.ForeColor = Color.White;
 
             ht = new Hashtable();
             ht.Add("width", 300);
-            ht.Add("point", new Point(40, 30));
-            ht.Add("color", Color.Gainsboro);
-            ht.Add("font", new Font("맑은고딕", 14, FontStyle.Bold));
+            ht.Add("point", new Point(15, 20));
+            ht.Add("color", Color.WhiteSmoke);
+            ht.Add("font", new Font("맑은고딕", 15, FontStyle.Bold));
             ht.Add("name", "comboCategory");
-            comboCategory = comm.getComboBox(ht,parentForm);
+            comboCategory = comm.getComboBox(ht, pnl_group);
             api = new WebAPI();
             ArrayList list = api.SelectCategory("http://localhost:5000/select/Category");
             arr = new string[list.Count];
@@ -107,8 +135,7 @@ namespace CLAprogram.Views
 
             comboCategory.SelectedIndexChanged += ComboCategory_SelectedIndexChanged;
             comboCategory.Items.AddRange(arr);
-            comboCategory.Font = new Font("맑은 고딕", 13, FontStyle.Bold);
-
+            comboCategory.Font = new Font("맑은 고딕", 15, FontStyle.Bold);
         }
 
         private void Dash_lv_Click(object sender, EventArgs e)
@@ -121,8 +148,8 @@ namespace CLAprogram.Views
             {
                 ListViewItem item = itemGroup[i];
                 
-                //MessageBox.Show(item.SubItems[0].Text);
-                bNo = item.SubItems[0].Text;
+                BNo = item.SubItems[0].Text;
+                //MessageBox.Show(BNo);
             }
         }
 
@@ -171,9 +198,9 @@ namespace CLAprogram.Views
                 //MessageBox.Show(Subject);
                 Content = item.SubItems[3].Text;
                 //MessageBox.Show(Content);
-                MessageBox.Show(item.SubItems[0].Text);
+                //MessageBox.Show(item.SubItems[0].Text);
                 bNo = item.SubItems[0].Text;
-                detail_Info = new Detail_Info(nTitle, Subject, Content);
+                detail_Info = new Detail_Info(bNo,nTitle, Subject, Content);
                 detail_Info.ShowDialog();
             }
         }
@@ -195,10 +222,6 @@ namespace CLAprogram.Views
                     }
                     MessageBox.Show("삭제되었습니다.");
                     NoticeInfo_porc(cNo[0]);
-                    break;
-                case "update":
-                    detail_Info = new Detail_Info(nTitle, Subject, Content);
-                    detail_Info.ShowDialog();
                     break;
                 case "write":
                     detail_Info = new Detail_Info(UserNo);

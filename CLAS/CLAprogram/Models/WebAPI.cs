@@ -102,16 +102,6 @@ namespace CLAprogram.Models
 
                 byte[] result = wc.UploadValues(url, "POST", param);
                 string resultStr = Encoding.UTF8.GetString(result);
-
-                if ("1" == resultStr)
-                {
-                    //MessageBox.Show("결제가 완료 되었습니다.!");
-                }
-                else
-                {
-                    //MessageBox.Show("결제 실패!!");
-                }
-
                 return true;
             }
             catch
