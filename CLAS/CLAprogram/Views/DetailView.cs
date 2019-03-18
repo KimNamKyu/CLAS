@@ -150,6 +150,7 @@ namespace CLAprogram.Views
             txt_content.Enabled = false;
             txt_content.Enter += Txt_Enter;
             txt_content.Leave += Txt_Leave;
+            txt_content.ForeColor = Color.Black;
             txt_content.BorderStyle = BorderStyle.FixedSingle;
             txt_content.Text = Content;
             pnl_item_title.Controls.Add(txt_content);

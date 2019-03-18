@@ -85,8 +85,11 @@ namespace CLAprogram.Views
             ht.Add("click", (MouseEventHandler)lv_Click);
             Dash_lv = comm.GetListView(ht, pnl_bottom);
             Dash_lv.Columns.Add("번호", 50, HorizontalAlignment.Center);
-            Dash_lv.Columns.Add("Url 정보", 200, HorizontalAlignment.Center);
+            Dash_lv.Columns.Add("Url 정보", 190, HorizontalAlignment.Center);
             Dash_lv.Columns.Add("Url Path", 300, HorizontalAlignment.Center);
+            Dash_lv.Columns.Add("조회수", 100, HorizontalAlignment.Center);
+            Dash_lv.Columns.Add("조회수", 100, HorizontalAlignment.Center);
+            Dash_lv.Columns.Add("조회수", 100, HorizontalAlignment.Center);
             Dash_lv.Columns.Add("조회수", 100, HorizontalAlignment.Center);
         }
 
@@ -104,21 +107,6 @@ namespace CLAprogram.Views
             Dash_lv.Items.Clear();
             ArrayList list = api.Select("http://localhost:5000/select", ht);
 
-            //for (int i = 0; i < list.Count; i++)
-            //{
-            //    JArray ja = (JArray)list[i];
-            //    string[] arr = new string[ja.Count];
-            //    for (int j = 0; j < ja.Count; j++)
-            //    {
-            //        arr[j] = ja[j].ToString();
-            //        arr[4] = ja[4].ToString();
-
-            //    }
-            //    //MessageBox.Show(arr[4]);
-            //    chart.Series[0].Points.Add(Convert.ToInt32(arr[4]));
-            //    Dash_lv.Items.Add(new ListViewItem(arr));
-            //}
-
             ArrayList result = new ArrayList();
             foreach (JObject row in list)
             {
@@ -127,13 +115,14 @@ namespace CLAprogram.Views
                 {
                    
                     ht.Add(col.Name, col.Value);
+                    //MessageBox.Show(col.Name, col.Value.ToString());
                 }
                 result.Add(ht);
             }
             foreach (Hashtable ht in result)
             {
-                chart.Series[0].Points.Add(Convert.ToInt32(ht["uView"].ToString()));
-                Dash_lv.Items.Add(new ListViewItem(new string[] { ht["UrlNo"].ToString(), ht["UrlName"].ToString(), ht["UrlPath"].ToString(), ht["uView"].ToString() }));
+                //chart.Series[0].Points.Add(Convert.ToInt32(ht["NonUser_cnt"].ToString()));
+                 Dash_lv.Items.Add(new ListViewItem(new string[] { ht["UrlNo"].ToString(), ht["UrlName"].ToString(), ht["UrlPath"].ToString(), ht["NonUser_cnt"].ToString(), ht["User_cnt"].ToString(), ht["Total"].ToString() }));
             }
         }
     }

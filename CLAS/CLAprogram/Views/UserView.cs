@@ -76,7 +76,7 @@ namespace CLAprogram.Views
 
             ht = new Hashtable();
             ht.Add("size", new Size(800, 600));
-            ht.Add("color", Color.WhiteSmoke);
+            ht.Add("color", Color.Gainsboro);
             ht.Add("name", "Dash_lv");
             ht.Add("click", (MouseEventHandler)lv_Click);
             Dash_lv = comm.GetListView(ht, pnl_bottom);
