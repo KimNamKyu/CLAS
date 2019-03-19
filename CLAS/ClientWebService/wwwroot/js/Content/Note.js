@@ -98,22 +98,22 @@
     }
     /*=============================검색 기능 처리 부분===================================*/
     
-        //$("#form").submit(function (e) {
-        //    e.preventDefault();
-        //    var bTitle = $("#text").val();
-        //    $.post("/select", { spName: "Board_Search", param: "@bTitle:" + bTitle })
-        //        .done(function (data) {
-        //            console.log(data);
-        //            $("tbody").empty();
-        //            for (var i = 0; i < data.length; i++) {
-        //                var html = "    <tr class = 'tr'>" +
-        //                    "    <td>" + data[i].sort + "</td>" +
-        //                    "    <td>" + data[i].bTitle + "</td>" +
-        //                    "    <td>" + data[i].MemberName + "</td>" +
-        //                    "    <td>" + data[i].regDate + "</td>" +
-        //                    "    <td>" + data[i].count + "</td>" +
-        //                    "</tr>";        //                $("tbody").append(html);
-        //            }
-        //        });
-        //});
+        $("#form").submit(function (e) {
+            e.preventDefault();
+            var bTitle = $("#text").val();
+            $.post("/select", { spName: "Board_Search", param: "@bTitle:" + bTitle })
+                .done(function (data) {
+                    console.log(data);
+                    $("tbody").empty();
+                    for (var i = 0; i < data.length; i++) {
+                        var html = "    <tr class = 'tr'>" +
+                            "    <td>" + data[i].sort + "</td>" +
+                            "    <td>" + data[i].bTitle + "</td>" +
+                            "    <td>" + data[i].MemberName + "</td>" +
+                            "    <td>" + data[i].regDate + "</td>" +
+                            "    <td>" + data[i].count + "</td>" +
+                            "</tr>";                        $("tbody").append(html);
+                    }
+                });
+        });
 });

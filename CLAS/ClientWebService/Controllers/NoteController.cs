@@ -46,25 +46,25 @@ namespace ClientWebService.Controllers
             return View();
         }
 
-        public async Task<IActionResult> TestSession()
-        {
-            // 참조 : https://github.com/aspnet/Docs/tree/master/aspnetcore/security/cookie-sharing/sample/CookieAuth.Core
-            // 참조 : https://github.com/gilbutITbook/006824/tree/master/Chapter34/DotNetNote/src/DotNetNote
-            var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, "admin", ClaimValueTypes.String, "urn:net-core")
-                };
-            var claimsIdentity = new ClaimsIdentity(claims, "Identity.Application");
-            var authProperties = new AuthenticationProperties() { };
-            //await HttpContext.SignInAsync("Cookies", new ClaimsPrincipal(ci), authProperties);
-            await HttpContext.SignInAsync("Identity.Application", new ClaimsPrincipal(claimsIdentity), authProperties);
-            return LocalRedirect("/");
-        }
+        //public async Task<IActionResult> TestSession()
+        //{
+        //    // 참조 : https://github.com/aspnet/Docs/tree/master/aspnetcore/security/cookie-sharing/sample/CookieAuth.Core
+        //    // 참조 : https://github.com/gilbutITbook/006824/tree/master/Chapter34/DotNetNote/src/DotNetNote
+        //    var claims = new List<Claim>
+        //        {
+        //            new Claim(ClaimTypes.Name, "admin", ClaimValueTypes.String, "urn:net-core")
+        //        };
+        //    var claimsIdentity = new ClaimsIdentity(claims, "Identity.Application");
+        //    var authProperties = new AuthenticationProperties() { };
+        //    //await HttpContext.SignInAsync("Cookies", new ClaimsPrincipal(ci), authProperties);
+        //    await HttpContext.SignInAsync("Identity.Application", new ClaimsPrincipal(claimsIdentity), authProperties);
+        //    return LocalRedirect("/");
+        //}
 
-        public async Task<IActionResult> Logout()
-        {
-            await HttpContext.SignOutAsync("Identity.Application");
-            return LocalRedirect("/");
-        }
+        //public async Task<IActionResult> Logout()
+        //{
+        //    await HttpContext.SignOutAsync("Identity.Application");
+        //    return LocalRedirect("/");
+        //}
     }
 }

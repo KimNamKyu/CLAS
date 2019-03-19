@@ -37,27 +37,27 @@ namespace ClientWebService.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public IActionResult Login()
-        {
-            DataBase db = new DataBase();
-            SqlDataReader sdr = db.Reader("Member_Info");
-            ArrayList list = new ArrayList();
-            while (sdr.Read())
-            {
-                Hashtable ht = new Hashtable();
-                for(int i = 0; i<sdr.FieldCount; i++)
-                {
-                    ht.Add(sdr.GetName(i), sdr.GetValue(i));
-                }
-                list.Add(ht);
-            }
-            db.ReaderClose(sdr);
-            db.Close();
+        //public IActionResult Login()
+        //{
+        //    DataBase db = new DataBase();
+        //    SqlDataReader sdr = db.Reader("Member_Info");
+        //    ArrayList list = new ArrayList();
+        //    while (sdr.Read())
+        //    {
+        //        Hashtable ht = new Hashtable();
+        //        for(int i = 0; i<sdr.FieldCount; i++)
+        //        {
+        //            ht.Add(sdr.GetName(i), sdr.GetValue(i));
+        //        }
+        //        list.Add(ht);
+        //    }
+        //    db.ReaderClose(sdr);
+        //    db.Close();
 
-            Hashtable row = (Hashtable)list[0];
-            string userNo = row["MemberNo"].ToString();
+        //    Hashtable row = (Hashtable)list[0];
+        //    string userNo = row["MemberNo"].ToString();
             
-            return View();
-        }
+        //    return View();
+        //}
     }
 }

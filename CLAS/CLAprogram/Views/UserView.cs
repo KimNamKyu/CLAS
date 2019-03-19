@@ -1,4 +1,5 @@
-﻿using CLAprogram.Models;
+﻿using CLAprogram.Forms;
+using CLAprogram.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -154,7 +155,11 @@ namespace CLAprogram.Views
             {
                 ListViewItem item = itemGroup[i];
                 mNo = item.SubItems[0].Text;
-                MessageBox.Show(mNo);
+                //MessageBox.Show(mNo);
+
+                LogForm log;
+                log = new LogForm(mNo);
+                log.ShowDialog();
             }
         }
 
@@ -176,7 +181,7 @@ namespace CLAprogram.Views
                         ht = new Hashtable();
                         ht.Add("spName", "user_search");
                         ht.Add("param", "@mId:" + txt_serach.Text);
-                        ArrayList list = api.Select("http://localhost:5000/select", ht);
+                        ArrayList list = api.Select(Program.serverUrl + "select", ht);
                         Dash_lv.Items.Clear();
                         ArrayList result = new ArrayList();
                         foreach (JObject row in list)
@@ -202,7 +207,7 @@ namespace CLAprogram.Views
                     api = new WebAPI();
                     ht = new Hashtable();
                     ht.Add("mNo", mNo);
-                    if (!api.Post("http://localhost:5000/api/deleteMember", ht))
+                    if (!api.Post(Program.serverUrl + "api/deleteMember", ht))
                     {
                         MessageBox.Show("삭제 실패");
                         break;
@@ -225,7 +230,7 @@ namespace CLAprogram.Views
             ht.Add("spName", "Member_Info");
             ht.Add("param", "");
            
-            ArrayList list = api.Select("http://localhost:5000/select", ht);
+            ArrayList list = api.Select(Program.serverUrl + "select", ht);
 
             ArrayList result = new ArrayList();
             foreach (JObject row in list)

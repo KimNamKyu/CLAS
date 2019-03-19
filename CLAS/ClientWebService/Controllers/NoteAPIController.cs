@@ -42,15 +42,22 @@ namespace ClientWebService.Controllers
 
         [Route("delete/Reply")]
         [HttpPost]
-        public int Replydelete([FromForm] string rNo, [FromForm] string uNo)
+        public string Replydelete([FromForm] string rNo)
         {
             Hashtable ht = new Hashtable();
             ht.Add("@rNo", rNo);
-            ht.Add("@uNo", uNo);
             DataBase db = new DataBase();
-            int result = db.NonQuerys("Reply_Delete", ht);
-            db.Close();
-            return result;
+           
+            if (db.NonQuery("Reply_Delete", ht))
+            {
+                db.Close();
+                return "1";
+            }
+            else
+            {
+                db.Close();
+                return "0";
+            }
         }
 
         [Route("delete/Note")]
@@ -92,7 +99,7 @@ namespace ClientWebService.Controllers
         [HttpPost]
         public string Noteupdate([FromForm] string bNo, [FromForm] string bTitle, [FromForm] string bContents)
         {
-            Console.WriteLine("spName :Board_update_proc, bNo : {1}", bNo);
+            Console.WriteLine("spName :Board_update_proc, bNo : {0} : {1} :{2}", bNo,bTitle,bContents);
             Hashtable ht = new Hashtable();
             ht.Add("@bTitle", bTitle);
             ht.Add("@bContents", bContents);

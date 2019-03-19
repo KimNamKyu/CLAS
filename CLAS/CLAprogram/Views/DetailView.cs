@@ -25,14 +25,18 @@ namespace CLAprogram.Views
         private string[] arr;
         public string DvcNo;
         private string[] _cNo;
+        private string UserNo;
+        private ListView Dash_lv;
+        private string rNo;
 
-        public DetailView(Form parentForm,  string UserNo)
+        public DetailView(Form parentForm)
         {
             this.parentForm = parentForm;
-            this.bNo = UserNo;
+           
             comm = new Commons();
             getView();
             WriteGetView();
+            parentForm.BackColor = Color.DimGray;
         }
 
         public DetailView(Form parentForm, string bNo, string nTitle, string Subject, string Content)
@@ -45,6 +49,7 @@ namespace CLAprogram.Views
             comm = new Commons();
             getView();
             DetailGetView();
+            parentForm.BackColor = Color.DimGray;
         }
 
 
@@ -77,6 +82,15 @@ namespace CLAprogram.Views
         }
         private void DetailGetView()
         {
+            ht = new Hashtable();
+            ht.Add("size", new Size(100, 60));
+            ht.Add("point", new Point(300, 10));
+            ht.Add("color", Color.Gainsboro);
+            ht.Add("name", "댓글 삭제");
+            ht.Add("text", "댓글 삭제");
+            ht.Add("click", (EventHandler)btn_Click);
+            btn_Board = comm.getButton(ht, pnl_item);
+
             ht = new Hashtable();
             ht.Add("size", new Size(100, 60));
             ht.Add("point", new Point(410, 10));
@@ -139,6 +153,7 @@ namespace CLAprogram.Views
             txt_Title.Leave += Txt_Title_Leave;
             txt_Title.Visible = false;
 
+           
             ht = new Hashtable();
             ht.Add("width", 700);
             ht.Add("font", new Font("Microsoft Sans Serif", 20));
@@ -146,7 +161,7 @@ namespace CLAprogram.Views
             ht.Add("name", "내용");
             txt_content = comm.getTextBox(ht, pnl_item_title);
             txt_content.Multiline = true;
-            txt_content.Height = 400;
+            txt_content.Height = 350;
             txt_content.Enabled = false;
             txt_content.Enter += Txt_Enter;
             txt_content.Leave += Txt_Leave;
@@ -154,8 +169,49 @@ namespace CLAprogram.Views
             txt_content.BorderStyle = BorderStyle.FixedSingle;
             txt_content.Text = Content;
             pnl_item_title.Controls.Add(txt_content);
+
+            ht = new Hashtable();
+            ht.Add("size", new Size(700, 200));
+            ht.Add("point", new Point(28, 450));
+            ht.Add("color", Color.Blue);
+            ht.Add("name", "group");
+            pnl_item_title = comm.getPanel(ht, pnl_item_title);
+            pnl_item_title.BorderStyle = BorderStyle.FixedSingle;
+
+
+            ht = new Hashtable();
+            //ht.Add("size", new Size(500, 300));
+            ht.Add("color", Color.Gainsboro);
+            ht.Add("name", "Dash_lv");
+            ht.Add("click", (MouseEventHandler)lv_Click);
+            Dash_lv = comm.GetListView(ht, pnl_item_title);
+            Dash_lv.Columns.Add("번호", 50, HorizontalAlignment.Center);
+            Dash_lv.Columns.Add("댓글내용", 300, HorizontalAlignment.Center);
+            Dash_lv.Columns.Add("작성자", 100, HorizontalAlignment.Center);
+            Dash_lv.Columns.Add("작성날짜", 245, HorizontalAlignment.Center);
+            Dash_lv.Click += Dash_lv_Click;
+            ReplyInfo_porc();
         }
 
+        private void Dash_lv_Click(object sender, EventArgs e)
+        {
+            ListView lv = (ListView)sender;
+            lv.FullRowSelect = true;
+            ListView.SelectedListViewItemCollection itemGroup = lv.SelectedItems;
+
+            for (int i = 0; i < itemGroup.Count; i++)
+            {
+                ListViewItem item = itemGroup[i];
+
+                rNo = item.SubItems[0].Text;
+                //MessageBox.Show(rNo);
+            }
+        }
+
+        private void lv_Click(object sender, MouseEventArgs e)
+        {
+            
+        }
 
         private void WriteGetView()
         {
@@ -217,7 +273,7 @@ namespace CLAprogram.Views
             ht.Add("name", "comboCategory");
             comboCategory = comm.getComboBox(ht, pnl_item);
             api = new WebAPI();
-            ArrayList list = api.SelectCategory("http://localhost:5000/select/Category");
+            ArrayList list = api.SelectCategory(Program.serverUrl + "select/Category");
             
             arr = new string[list.Count];
             _cNo = new string[list.Count];
@@ -264,31 +320,44 @@ namespace CLAprogram.Views
                     ht.Add("cNo", DvcNo);
                     ht.Add("bTitle", txt_Title.Text);
                     ht.Add("bContents", txt_content.Text);
-                    ht.Add("MemberNo", bNo);
-                    if (!api.Post("http://localhost:5000/insert/Note", ht))
+                    ht.Add("MemberNo", "1");
+                    if (!api.Post(Program.serverUrl + "insert/Note", ht))
                     {
                         MessageBox.Show("추가실패");
                     }
-                    MessageBox.Show("공지사항 추가되었습니다.");
+                    MessageBox.Show("게시물 추가되었습니다.");
                     parentForm.Dispose();
                     break;
+
+                case "댓글 삭제":
+                    api = new WebAPI();
+                    ht = new Hashtable();
+                    ht.Add("rNo", rNo);
+                    if(!api.Post(Program.serverUrl + "delete/Reply", ht))
+                    {
+                        MessageBox.Show("삭제 실패");
+                    }
+                    ReplyInfo_porc();
+                    break;
                 case "등록":
+                    
                     api = new WebAPI();
                     ht = new Hashtable();
                     ht.Add("bNo", bNo);
                     ht.Add("bTitle", txt_Title.Text);
                     ht.Add("bContents", txt_content.Text);
-                    if (!api.Post("http://localhost:5000/update/Noteinfo", ht))
+                    if (!api.Post(Program.serverUrl + "update/Noteinfo", ht))
                     {
                         MessageBox.Show("수정실패");
                     }
-                    
                     parentForm.Dispose();
                     break;
                 case "수정":
                     lb_title.Visible = false;
                     txt_content.Enabled = true;
                     txt_Title.Visible = true;
+                    txt_content.Clear();
+                    txt_Title.Clear();
                     break;
                 case "취소":
                     parentForm.Dispose();
@@ -332,6 +401,28 @@ namespace CLAprogram.Views
             {
                 txt_content.Text = "";
                 txt_content.ForeColor = Color.Black;
+            }
+        }
+
+
+
+        public void ReplyInfo_porc()
+        {
+            api = new WebAPI();
+            ht = new Hashtable();
+            ht.Add("spName", "Reply_Proc");
+            ht.Add("param", "@bNo:"+bNo );
+            Dash_lv.Items.Clear();
+            ArrayList list = api.Select(Program.serverUrl + "select", ht);
+
+            foreach (JObject row in list)
+            {
+                Hashtable ht = new Hashtable();
+                foreach (JProperty col in row.Properties())
+                {
+                    ht.Add(col.Name, col.Value);
+                }
+                Dash_lv.Items.Add(new ListViewItem(new string[] { ht["rNo"].ToString(), ht["rContent"].ToString(), ht["MemberName"].ToString(), ht["regDate"].ToString() }));
             }
         }
     }

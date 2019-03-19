@@ -123,7 +123,7 @@ namespace CLAprogram.Views
             ht.Add("name", "comboCategory");
             comboCategory = comm.getComboBox(ht, pnl_group);
             api = new WebAPI();
-            ArrayList list = api.SelectCategory("http://localhost:5000/select/Category");
+            ArrayList list = api.SelectCategory(Program.serverUrl + "select/Category");
             arr = new string[list.Count];
             cNo = new string[list.Count];
             for (int i = 0; i < list.Count; i++)
@@ -215,7 +215,7 @@ namespace CLAprogram.Views
                     ht = new Hashtable();
                     ht.Add("spName", "Board_delete_proc");
                     ht.Add("bNo", bNo);
-                    if (!api.Post("http://localhost:5000/delete/Note", ht))
+                    if (!api.Post(Program.serverUrl + "delete/Note", ht))
                     {
                         MessageBox.Show("삭제 실패");
                         break;
@@ -224,7 +224,7 @@ namespace CLAprogram.Views
                     NoticeInfo_porc(cNo[0]);
                     break;
                 case "write":
-                    detail_Info = new Detail_Info(UserNo);
+                    detail_Info = new Detail_Info();
                     detail_Info.ShowDialog();
                     Dash_lv.Items.Clear();
                     break;
@@ -244,7 +244,7 @@ namespace CLAprogram.Views
             ht.Add("spName", "Board_Proc");
             ht.Add("param", "@cNo:" + cNo);
             Dash_lv.Items.Clear();
-            ArrayList list = api.Select("http://localhost:5000/select", ht);
+            ArrayList list = api.Select(Program.serverUrl + "select", ht);
 
             
             ArrayList result = new ArrayList();

@@ -25,6 +25,7 @@
                     "<div class='replybox'>" +
                     "<p id='MemberName'>" + data[i].MemberName + "</p>" +
                     "<p id='MemberName'>" + data[i].regDate + "</p>" +
+                    "<br>" +
                     "<p id='MemberName'>" + data[i].rContent + "</p>" +
                     
                             "</div>" +

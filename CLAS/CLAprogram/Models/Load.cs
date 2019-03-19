@@ -13,11 +13,13 @@ namespace CLAprogram.Models
     class Load
     {
         private Form parentForm;
+        private string mNo;
         private string nTitle;
         private string Subject;
         private string Content;
         private FormLoad form;
         private string bNo;
+  
 
         public Load(Form parentForm)
         {
@@ -36,8 +38,10 @@ namespace CLAprogram.Models
         public Load(Form parentForm, string UserNo)
         {
             this.parentForm = parentForm;
-            this.bNo = UserNo;
+            this.mNo = UserNo;
         }
+
+       
 
 
         public EventHandler GetHandler(string viewName)
@@ -58,21 +62,23 @@ namespace CLAprogram.Models
                     return GetDetailLoad;
                 case "detail_write":
                     return GetDetailwriteLoad;
-                case "home":
-                    return GetHomeLoad;
+                case "Log_user":
+                    return GetLog;
                 default:
                     return null;
             }
         }
 
-        private void GetHomeLoad(object sender, EventArgs e)
+        private void GetLog(object sender, EventArgs e)
         {
-            form = new FormLoad();
-            form.GetLoad(parentForm, "SDI");
-            parentForm.WindowState = FormWindowState.Maximized;
-            parentForm.FormBorderStyle = FormBorderStyle.None;
-
-            new HomeView(parentForm);
+            parentForm.Size = new Size(810, 830);
+            parentForm.BackColor = Color.Gainsboro;
+            parentForm.FormBorderStyle = FormBorderStyle.FixedSingle;
+            parentForm.StartPosition = FormStartPosition.CenterScreen;
+            parentForm.MaximizeBox = false;
+            parentForm.MinimizeBox = false;
+            parentForm.Text = "로그 기록 상세 조회 화면";
+            new LoguserView(parentForm, mNo);
         }
 
         private void GetDetailwriteLoad(object sender, EventArgs e)
@@ -84,7 +90,7 @@ namespace CLAprogram.Models
             parentForm.MaximizeBox = false;
             parentForm.MinimizeBox = false;
             parentForm.Text = "글쓰기 화면";
-            new DetailView(parentForm, bNo);
+            new DetailView(parentForm);
         }
 
         private void GetDetailLoad(object sender, EventArgs e)
@@ -105,7 +111,6 @@ namespace CLAprogram.Models
             form.GetLoad(parentForm, "SDI");
             parentForm.WindowState = FormWindowState.Maximized;
             parentForm.FormBorderStyle = FormBorderStyle.None;
-            
             new DashBoardView(parentForm);
         }
 
@@ -131,7 +136,7 @@ namespace CLAprogram.Models
         private void GetManageLoad(object sender, EventArgs e)
         {
             parentForm.Size = new Size(1200, 900);
-            //parentForm.FormBorderStyle = FormBorderStyle.FixedSingle;
+            parentForm.FormBorderStyle = FormBorderStyle.FixedSingle;
             parentForm.MaximizeBox = false;
             parentForm.MinimizeBox = false;
             parentForm.Text = "관리화면";

@@ -144,7 +144,7 @@ namespace CLAprogram.Views
             ht.Add("param", "");
             //ht.Add("id", txt_box1.Text);
             //ht.Add("pwd", txt_box2.Text);
-            ArrayList list = api.Select("http://localhost:5000/select", ht);
+            ArrayList list = api.Select(Program.serverUrl + "select", ht);
 
             ArrayList result = new ArrayList();
             JObject jo = (JObject)list[0];

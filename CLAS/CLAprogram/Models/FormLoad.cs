@@ -14,11 +14,7 @@ namespace CLAprogram.Models
                 case "MDI":
                     targetForm.IsMdiContainer = true;
                     targetForm.FormBorderStyle = FormBorderStyle.FixedSingle;
-                    //Panel Content = new Panel();
-                    //Content.Dock = DockStyle.Fill;
-                    //Content.Name = "Content";
-                    //Content.BackColor = Color.Yellow;
-                    //targetForm.Controls.Add(Content);
+                    
                     return true;
                 case "SDI":
                     targetForm.IsMdiContainer = false;

@@ -17,7 +17,8 @@ namespace CLAprogram
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ManageForm());
+            Application.Run(new MainForm());
         }
+        static public string serverUrl = "http://gdc3.gudi.kr:41001/";
     }
 }

@@ -11,13 +11,13 @@ using System.Windows.Forms;
 
 namespace CLAprogram.Forms
 {
-    public partial class HomeForm : Form
+    public partial class LogForm : Form
     {
-        public HomeForm()
+        public LogForm(string UserNo)
         {
             InitializeComponent();
-            Load load = new Load(this);
-            Load += load.GetHandler("home");
+            Load load = new Load(this, UserNo);
+            Load += load.GetHandler("Log_user");
         }
     }
 }
