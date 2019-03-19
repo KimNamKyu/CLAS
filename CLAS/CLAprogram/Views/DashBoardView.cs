@@ -1,4 +1,5 @@
-﻿using CLAprogram.Models;
+﻿using CLAprogram.Forms;
+using CLAprogram.Models;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
@@ -14,18 +15,16 @@ namespace CLAprogram.Views
         private Panel pnl_top;
         private Panel pnl_bottom;
         private Panel pnl_center;
-        private Panel pnl_body;
+        private Button btn_log;
         private Hashtable ht;
         private Form parentForm;
         private Commons comm;
-        private Chart chart;
         private ListView Dash_lv;
         private Panel pnl_group;
         private Label lb_title;
         private Chart chartTotal;
         private Chart chartuser;
         private Chart chartNon;
-        private Panel pnl_text;
         private Panel pnl_body1;
         private Panel pnl_body2;
         private Panel pnl_body3;
@@ -99,38 +98,49 @@ namespace CLAprogram.Views
             pnl_body3.BorderStyle = BorderStyle.FixedSingle;
 
             ht = new Hashtable();
-            ht.Add("point", new Point(60, 5));
+            ht.Add("point", new Point(80, 5));
             ht.Add("color", Color.WhiteSmoke);
             ht.Add("name", "title");
-            ht.Add("text", "총 방문수");
+            ht.Add("text", "Total");
             lb_title = comm.getLabel(ht, pnl_body1);
             lb_title.Font = new Font("Microsoft Sans Serif", 25);
             lb_title.Size = new Size(700, 60);
             lb_title.ForeColor = Color.White;
 
             ht = new Hashtable();
-            ht.Add("point", new Point(35, 5));
+            ht.Add("point", new Point(5, 5));
             ht.Add("color", Color.WhiteSmoke);
             ht.Add("name", "title");
-            ht.Add("text", "비 유저 방문수");
+            ht.Add("text", "비 유저 접속 컨텐츠 이용수");
             lb_title = comm.getLabel(ht, pnl_body2);
             lb_title.Font = new Font("Microsoft Sans Serif", 25);
             lb_title.Size = new Size(700, 60);
             lb_title.ForeColor = Color.White;
 
             ht = new Hashtable();
-            ht.Add("point", new Point(50, 5));
+            ht.Add("point", new Point(10, 5));
             ht.Add("color", Color.WhiteSmoke);
             ht.Add("name", "title");
-            ht.Add("text", "유저 방문수");
+            ht.Add("text", "유저 컨텐츠 이용수");
             lb_title = comm.getLabel(ht, pnl_body3);
             lb_title.Font = new Font("Microsoft Sans Serif", 25);
             lb_title.Size = new Size(700, 60);
             lb_title.ForeColor = Color.White;
 
-            //===================================================
+            ht = new Hashtable();
+            ht.Add("size", new Size(160, 130));
+            ht.Add("point", new Point(790, 10));
+            ht.Add("color", Color.FromArgb(0, 89, 171));
+            ht.Add("name", "search");
+            ht.Add("text", "실시간 로그기록");
+            ht.Add("click", (EventHandler)btn_Click);
+            btn_log = comm.getButton(ht, pnl_group);
+            btn_log.ForeColor = Color.White;
+            btn_log.Font = new Font("Microsoft Sans Serif", 18);
 
-           
+            
+
+            //===================================================
 
 
             ht = new Hashtable();
@@ -188,10 +198,9 @@ namespace CLAprogram.Views
             lb_user.Font = new Font("Microsoft Sans Serif", 25);
             lb_user.Size = new Size(700, 60);
             lb_user.ForeColor = Color.Black;
-            
 
-            //===============================
 
+            //=============================== 차트 View
 
             ht = new Hashtable();
             ht.Add("size", new Size(940, 270));
@@ -204,35 +213,40 @@ namespace CLAprogram.Views
             ht.Add("size", new Size(300, 250));
             ht.Add("point", new Point(10, 10));
             ht.Add("name", "chart");
+            ht.Add("legname", "Legend1");
+            ht.Add("seriname", "Series1");
             chartNon = comm.getChart(ht, pnl_center);
             chartNon.Series[0].ChartType = SeriesChartType.Doughnut;
             chartNon.Series[0].IsValueShownAsLabel = true;
             chartNon.Series[0].MarkerStyle = MarkerStyle.Diamond;
-
+            
 
 
             ht = new Hashtable();
             ht.Add("size", new Size(300, 250));
             ht.Add("point", new Point(320, 10));
             ht.Add("name", "chart");
+            ht.Add("legname", "Legend1");
+            ht.Add("seriname", "Series1");
             chartuser = comm.getChart(ht, pnl_center);
             chartuser.Series[0].Color = Color.Black;
             chartuser.Series[0].ChartType = SeriesChartType.Doughnut;
             chartuser.Series[0].IsValueShownAsLabel = true;
-            //chartuser.Series[0].Points.AddXY("", "");
             chartuser.Series[0].MarkerStyle = MarkerStyle.Diamond;
             chartuser.Series[0].MarkerSize = 4;
+            
 
 
             ht = new Hashtable();
             ht.Add("size", new Size(300, 250));
             ht.Add("point", new Point(630, 10));
             ht.Add("name", "chart");
+            ht.Add("legname", "Legend1");
+            ht.Add("seriname", "Series1");
             chartTotal = comm.getChart(ht, pnl_center);
             chartTotal.Series[0].Color = Color.Black;
             chartTotal.Series[0].ChartType = SeriesChartType.Doughnut;
             chartTotal.Series[0].IsValueShownAsLabel = true;
-            //chartTotal.Series[0].Points.AddXY("", "");
             chartTotal.Series[0].MarkerStyle = MarkerStyle.Diamond;
             chartTotal.Series[0].MarkerSize = 4;
 
@@ -271,7 +285,7 @@ namespace CLAprogram.Views
             //ht.Add("size", new Size(500, 300));
             ht.Add("color", Color.Gainsboro);
             ht.Add("name", "Dash_lv");
-            ht.Add("click", (MouseEventHandler)lv_Click);
+            ht.Add("click", null);
             Dash_lv = comm.GetListView(ht, pnl_bottom);
             Dash_lv.Columns.Add("번호", 50, HorizontalAlignment.Center);
             Dash_lv.Columns.Add("Url 정보", 190, HorizontalAlignment.Center);
@@ -281,10 +295,13 @@ namespace CLAprogram.Views
             Dash_lv.Columns.Add("Total", 140, HorizontalAlignment.Center);
         }
 
-        private void lv_Click(object sender, MouseEventArgs e)
-        {
 
+        private void btn_Click(object sender, EventArgs e)
+        {
+            LogReportForm logReport = new LogReportForm();
+            logReport.Show();
         }
+
 
         private void UrlInfo_porc(object sender,EventArgs eventArgs)
         {
@@ -302,11 +319,12 @@ namespace CLAprogram.Views
             nonusercnt = 0;
             usercnt = 0;
             Total = 0;
+           
 
             ArrayList result = new ArrayList();
             foreach (JObject row in list)
             {
-                Hashtable ht = new Hashtable();
+                ht = new Hashtable();
                
                 foreach (JProperty col in row.Properties())
                 {
@@ -316,20 +334,15 @@ namespace CLAprogram.Views
                 nonusercnt += Convert.ToInt32(ht["NonUser_cnt"].ToString());
                 usercnt += Convert.ToInt32(ht["User_cnt"].ToString());
                 Total += Convert.ToInt32(ht["Total"].ToString());
-
-                chartNon.Series[0].Points.Add(Convert.ToInt32(ht["NonUser_cnt"].ToString()));
-                chartuser.Series[0].Points.Add(Convert.ToInt32(ht["User_cnt"].ToString()));
-                chartTotal.Series[0].Points.Add(Convert.ToInt32(ht["Total"].ToString()));
+                
+                chartNon.Series[0].Points.AddXY(ht["UrlName"].ToString(),Convert.ToInt32(ht["NonUser_cnt"].ToString()));
+                chartuser.Series[0].Points.AddXY(ht["UrlName"].ToString(), Convert.ToInt32(ht["User_cnt"].ToString()));
+                chartTotal.Series[0].Points.AddXY(ht["UrlName"].ToString(), Convert.ToInt32(ht["Total"].ToString()));
                 Dash_lv.Items.Add(new ListViewItem(new string[] { ht["urlNo"].ToString(), ht["UrlName"].ToString(), ht["UrlPath"].ToString(), ht["NonUser_cnt"].ToString(), ht["User_cnt"].ToString(), ht["Total"].ToString() }));
-                //result.Add(ht);
             }
             lb_Total.Text = Total.ToString();
             lb_Nonuser.Text = nonusercnt.ToString();
             lb_user.Text = usercnt.ToString();
-
-            
-           
-           
         }
     }
 }

@@ -118,5 +118,21 @@ namespace ClientWebService.Controllers
                 return "0";
             }
         }
+
+
+        [Route("select/NoteSearch")]
+        [HttpPost]
+        public ActionResult<ArrayList> Search([FromForm] string spName, [FromForm]string param, [FromForm]string pNo)
+        {
+
+            Hashtable ht = new Hashtable();
+            ht.Add("@bTitle", param);
+            ht.Add("@pNo", pNo);
+
+            DataBase db = new DataBase();
+            ArrayList result = db.GetList(spName, ht);
+            db.Close();
+            return result;
+        }
     }
 }

@@ -25,7 +25,6 @@ namespace CLAprogram.Views
         private string[] arr;
         public string DvcNo;
         private string[] _cNo;
-        private string UserNo;
         private ListView Dash_lv;
         private string rNo;
 

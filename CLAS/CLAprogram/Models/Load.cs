@@ -64,9 +64,23 @@ namespace CLAprogram.Models
                     return GetDetailwriteLoad;
                 case "Log_user":
                     return GetLog;
+                case "LogReport":
+                    return GetLogLoad;
                 default:
                     return null;
             }
+        }
+
+        private void GetLogLoad(object sender, EventArgs e)
+        {
+            parentForm.Size = new Size(810, 830);
+            parentForm.BackColor = Color.Gainsboro;
+            parentForm.FormBorderStyle = FormBorderStyle.FixedSingle;
+            parentForm.StartPosition = FormStartPosition.CenterScreen;
+            parentForm.MaximizeBox = false;
+            parentForm.MinimizeBox = false;
+            parentForm.Text = "실시간 로그 기록 화면";
+            new LogReportView(parentForm);
         }
 
         private void GetLog(object sender, EventArgs e)
@@ -152,7 +166,7 @@ namespace CLAprogram.Models
             parentForm.FormBorderStyle = FormBorderStyle.FixedSingle;
             //parentForm.MaximizeBox = false;
             //parentForm.MinimizeBox = false;
-            parentForm.Text = "메인화면";
+            parentForm.Text = "로그인 화면";
             new MainView(parentForm);
         }
     }

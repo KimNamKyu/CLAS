@@ -149,6 +149,7 @@ namespace CLAprogram.Models
             ChartArea chartArea = new ChartArea();
             Chart chart = new Chart();
             Series series = new Series();
+            Legend legend = new Legend();
             
             //=================chart area===========================
             chartArea.AxisX.MajorGrid.Enabled = false;
@@ -156,7 +157,7 @@ namespace CLAprogram.Models
             chartArea.Name = "ChartArea";
             chartArea.AxisX.IsLabelAutoFit = true;
             chartArea.AxisX.LabelAutoFitStyle = LabelAutoFitStyles.WordWrap;
-            //chartArea.BackColor = Color.AliceBlue;
+            
             //===================chart==============================
             chart.ChartAreas.Add(chartArea);
             chart.Location = (Point)hashtable["point"];
@@ -164,41 +165,15 @@ namespace CLAprogram.Models
 
             series.ChartArea = "ChartArea";
             series.Name = "Series";
-            //series.BorderColor = Color.Black;
-            //series.BorderWidth = 1;
-            //series.LabelAngle = 90;
-            chart.Series.Add(series);
-
-
+            
             chart.Size = (Size)hashtable["size"];
+            series.Legend = hashtable["legname"].ToString();
+
+
+            chart.Legends.Add(legend);
+            chart.Series.Add(series);
             parentDomain.Controls.Add(chart);
             return chart;
         }
-
-        public Chart getchart(Hashtable hashtable, Control parentDomain)
-        {
-            Chart chart = new Chart();
-            ChartArea chartArea1 = new ChartArea();
-            Legend legend1 = new Legend();
-            Series series1 = new Series();
-
-            chartArea1.Name = hashtable["areaname"].ToString();
-            legend1.Name = hashtable["legname"].ToString();
-            series1.ChartArea = hashtable["areaname"].ToString();
-            series1.Legend = hashtable["legname"].ToString();
-            series1.Name = hashtable["seriname"].ToString();
-            // 차트 기본
-            chart.Name = hashtable["chartname"].ToString();
-            chart.Dock = DockStyle.Fill;
-            chart.Text = hashtable["text"].ToString();
-            chart.ChartAreas.Add(chartArea1);
-            chart.Legends.Add(legend1);
-            chart.Series.Add(series1);
-            chart.Series[series1.Name].IsValueShownAsLabel = true;
-
-            parentDomain.Controls.Add(chart);
-            return chart;
-        }
-
     }
 }

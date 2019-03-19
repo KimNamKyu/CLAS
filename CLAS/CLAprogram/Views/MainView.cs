@@ -142,8 +142,6 @@ namespace CLAprogram.Views
             ht = new Hashtable();
             ht.Add("spName", "AdminLogin");
             ht.Add("param", "");
-            //ht.Add("id", txt_box1.Text);
-            //ht.Add("pwd", txt_box2.Text);
             ArrayList list = api.Select(Program.serverUrl + "select", ht);
 
             ArrayList result = new ArrayList();
@@ -151,14 +149,13 @@ namespace CLAprogram.Views
 
             string id = jo["MemberId"].ToString();
             string pwd = jo["MemberPassword"].ToString();
-            MessageBox.Show(id +" : "+ pwd);
+            //MessageBox.Show(id +" : "+ pwd);
 
             if (id == txt_login.Text && pwd == txt_pwd.Text)
             {
                 targetForm = new ManageForm();
                 this.parentForm.Hide();
-                targetForm.StartPosition = FormStartPosition.CenterScreen;
-                //tagetForm.FormClosed += new FormClosedEventHandler(Exit_click);
+                targetForm.StartPosition = FormStartPosition.CenterParent;
                 targetForm.Show();
             }
             else
@@ -166,10 +163,6 @@ namespace CLAprogram.Views
                 MessageBox.Show("아이디와 비밀번호를 확인해주세요 ");
             }
 
-        }
-        private void Exit_click(object sender, FormClosedEventArgs e)
-        {
-            this.parentForm.Close();
         }
     }
 }
