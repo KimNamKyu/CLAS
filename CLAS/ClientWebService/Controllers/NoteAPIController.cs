@@ -62,14 +62,14 @@ namespace ClientWebService.Controllers
 
         [Route("delete/Note")]
         [HttpPost]
-        public ActionResult<string> post([FromForm] string spName, [FromForm] string bNo)
+        public ActionResult<string> post([FromForm] string bNo)
         {
-            Console.WriteLine("spName : {0}, bNo : {1}", spName, bNo);
+            //Console.WriteLine("spName : {0}, bNo : {1}", spName, bNo);
             Hashtable ht = new Hashtable();
 
             ht.Add("@bNo", bNo);
             DataBase db = new DataBase();
-            if (db.NonQuery(spName, ht))
+            if (db.NonQuery("Board_delete_proc", ht))
             {
                 db.Close();
                 return "1";

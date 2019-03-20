@@ -6,6 +6,7 @@
     $.post("/select/Note", { spName: "PAGE", param: cNo, pNo: pNo})
         .done(function (data) {
             console.log(data);
+            console.log(data[0]);
             $("tbody").empty();
             for (var i = 0; i < data.length; i++) {
                 

@@ -19,6 +19,6 @@ namespace CLAprogram
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
         }
-        static public string serverUrl = "http://localhost:5000/";
+        static public string serverUrl = "http://gdc3.gudi.kr:41001/";
     }
 }

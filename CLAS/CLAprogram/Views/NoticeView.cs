@@ -211,10 +211,10 @@ namespace CLAprogram.Views
             switch (btn.Name)
             {
                 case "delete":
+                    MessageBox.Show(BNo);
                     api = new WebAPI();
                     ht = new Hashtable();
-                    ht.Add("spName", "Board_delete_proc");
-                    ht.Add("bNo", bNo);
+                    ht.Add("bNo", BNo);
                     if (!api.Post(Program.serverUrl + "delete/Note", ht))
                     {
                         MessageBox.Show("삭제 실패");

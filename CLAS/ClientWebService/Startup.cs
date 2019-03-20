@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -46,8 +47,15 @@ namespace ClientWebService
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            var provider = new FileExtensionContentTypeProvider();
+            provider.Mappings[".exe"] = "application/vnd.microsoft.portable-executable";
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                ContentTypeProvider = provider,
+            });
+
             app.UseSession();
-            app.UseStaticFiles();
+            //app.UseStaticFiles();
             app.UseCookiePolicy();
 
             app.UseMvc(routes =>
