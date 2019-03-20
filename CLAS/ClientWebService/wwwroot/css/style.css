@@ -128,6 +128,17 @@ li a:hover {
     opacity: 0.2;
 }
 
+.tagkyu,.admin {
+    float: right;
+    padding-left: 30px;
+    padding-right: 30px;
+    color: dimgray;
+    cursor: pointer;
+}
+
+.admin{
+    cursor:none;
+}
 
 #notice {
     background-image: url(/images/notice.png);

@@ -84,8 +84,8 @@ namespace CLAprogram.Views
             Dash_lv.Columns.Add("No", 50, HorizontalAlignment.Center);
             Dash_lv.Columns.Add("제목", 190, HorizontalAlignment.Center);
             Dash_lv.Columns.Add("내용", 350, HorizontalAlignment.Center);
-            Dash_lv.Columns.Add("작성자", 100, HorizontalAlignment.Center);
-            Dash_lv.Columns.Add("작성일", 240, HorizontalAlignment.Center);
+            Dash_lv.Columns.Add("작성자", 90, HorizontalAlignment.Center);
+            Dash_lv.Columns.Add("작성일", 250, HorizontalAlignment.Center);
                                     
             ht = new Hashtable();
             ht.Add("size", new Size(100, 40));

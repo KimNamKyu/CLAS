@@ -289,10 +289,10 @@ namespace CLAprogram.Views
             Dash_lv = comm.GetListView(ht, pnl_bottom);
             Dash_lv.Columns.Add("번호", 50, HorizontalAlignment.Center);
             Dash_lv.Columns.Add("Url 정보", 190, HorizontalAlignment.Center);
-            Dash_lv.Columns.Add("Url Path", 250, HorizontalAlignment.Center);
-            Dash_lv.Columns.Add("비유저 Total", 150, HorizontalAlignment.Center);
-            Dash_lv.Columns.Add("유저_cnt", 150, HorizontalAlignment.Center);
-            Dash_lv.Columns.Add("Total", 140, HorizontalAlignment.Center);
+            Dash_lv.Columns.Add("Url Path", 220, HorizontalAlignment.Center);
+            Dash_lv.Columns.Add("비유저 Page View", 170, HorizontalAlignment.Center);
+            Dash_lv.Columns.Add("유저 Page VIew", 160, HorizontalAlignment.Center);
+            Dash_lv.Columns.Add("Total View", 140, HorizontalAlignment.Center);
         }
 
 
