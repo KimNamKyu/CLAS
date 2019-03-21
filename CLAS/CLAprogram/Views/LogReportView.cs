@@ -77,8 +77,8 @@ namespace CLAprogram.Views
             ht.Add("click", null);
             Dash_lv = comm.GetListView(ht, pnl_item_title);
             Dash_lv.Columns.Add("번호", 50, HorizontalAlignment.Center);
-            Dash_lv.Columns.Add("유저이름", 100, HorizontalAlignment.Center);
             Dash_lv.Columns.Add("경로명", 100, HorizontalAlignment.Center);
+            Dash_lv.Columns.Add("유저명", 100, HorizontalAlignment.Center);
             Dash_lv.Columns.Add("접속날짜", 240, HorizontalAlignment.Center);
             Dash_lv.Columns.Add("로그아웃날짜", 240, HorizontalAlignment.Center);
 

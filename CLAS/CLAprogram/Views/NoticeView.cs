@@ -211,7 +211,7 @@ namespace CLAprogram.Views
             switch (btn.Name)
             {
                 case "delete":
-                    MessageBox.Show(BNo);
+                    //MessageBox.Show(BNo);
                     api = new WebAPI();
                     ht = new Hashtable();
                     ht.Add("bNo", BNo);
